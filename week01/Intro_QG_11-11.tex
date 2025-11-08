@@ -126,8 +126,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --Begin-Document --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
 \section{Contexte et motivation}
+
 \begin{frame}
   \frametitle{Population}
   \begin{center}
@@ -184,6 +184,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Concept theorique}
 
+\subsection{Définition}
+
 \begin{frame}
  \frametitle{Déf.}
  \parbox[t]{0.95\linewidth}{
@@ -215,6 +217,7 @@
 \end{itemize}
 
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
@@ -310,9 +313,14 @@
 \end{frame}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\section{Concept statistique}
+\subsection{Modèle de base}
+
 \begin{frame}
  \frametitle{Rappel}
  
@@ -330,17 +338,9 @@
  %\end{itemize}
 \end{frame}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%% --section --%
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Concept statistique}
-\subsection{Modèle de base}
 \begin{frame}
   \frametitle{Décomposition de la variation phénotypique (1/2)}
-  
   Pour un génotype dans un environnement donné on a :
-
   \begin{itemize}
     \item<2-> P : Phénotype
     \item<3-> $\mu$ : moyenne de la population
@@ -348,7 +348,7 @@
     \item<5-> E : Environnement (macro $\neq$ micro, spécifique)
   \end{itemize}
 
-  \onslide<6->{
+  \only<6->{
     \begin{align*}
       P &= \mu + G + E
     \end{align*}
@@ -360,7 +360,7 @@
   \frametitle{Décomposition de la variation phénotypique (2/2)}
   
   Pour un génotype dans un environnement donné on a :
-  \only<1>{
+  \only<1->{
     \[
       G = [g_1 + g_i + g_n]
     \]
@@ -375,7 +375,7 @@
     \end{itemize}
   }
   
-  \onslide<3->{
+  \only<3->{
     \[
       P = \mu + [g_1 + g_i + g_n] + E
     \]
@@ -386,19 +386,13 @@
 
 \begin{frame}
   \frametitle{Hértitabilité}
-
-\end{frame}
-
-
-
-\begin{frame}
-  \frametitle{Implications pour l'amélioration des plantes}
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
 \section{Application à l'amélioration des plantes}
 \begin{frame}
 \end{frame}
@@ -423,9 +417,7 @@
 \end{itemize}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%% --Apendix --%
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% After your last numbered slide
 \appendix
 \newcounter{finalframe}
 \setcounter{finalframe}{\value{framenumber}}

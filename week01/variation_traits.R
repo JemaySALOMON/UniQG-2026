@@ -1,16 +1,15 @@
-# --- Données simulées : 250 génotypes de sorgho ---
+# simul: 500 génotypes ( ex. sorghos)
 set.seed(123)
-
 n <- 500
 genotype <- paste0("G", 1:n)
 
-# Caractère qualitatif : résistance à une maladie
+# caractère quali
 resistance <- sample(c("Résistant", "Sensible"), n, replace = TRUE, prob = c(0.7, 0.4))
 
-# Caractère quantitatif : rendement en grains (kg/ha)
+# caract. quanti
 rendement <- rnorm(n, mean = 3, sd = 0.5)
 
-# --- 1. Distribution du caractère quantitatif (rendement) ---
+# Distribution
 hist(rendement,
      main = "ex. rendement",
      xlab = "Rendement (t/ha)",
@@ -18,7 +17,6 @@ hist(rendement,
      border = "white",
      breaks = 20)
 
-# --- 2. Distribution du caractère qualitatif (résistance) ---
 barplot(table(resistance),
         main = "ex. résistance/sensibilité",
         ylab = "Nombre de génotypes",

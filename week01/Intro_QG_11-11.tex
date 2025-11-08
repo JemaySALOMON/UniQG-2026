@@ -86,7 +86,7 @@
 \title[Génét. Quanti., UniQ ]{Cours 1 – Introduction à la génétique quantitative}
 \author[J. Salomon]{Jemay Salomon}
 \institute[]{\small UMR GQE Le Moulon \\ Université Paris–Saclay, INRAE, CNRS, AgroParisTech}
-\date{November 11, 2025}
+\date{Nov. 11, 2025}
 
 %% Title page
 \begin{frame}[plain,t]
@@ -313,36 +313,88 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Concept statistique}
 \begin{frame}
-\end{frame}
-
-\begin{frame}
-\end{frame}
-
-\begin{frame}
-\end{frame}
-
-\begin{frame}
+ \frametitle{Rappel}
+ 
+ %\begin{itemize}
+ % ADN
+ % Genes
+ % Alleles
+ % Effet allélique
+ % Locus
+ % Dominance
+ % Recessivité
+ % Epistasie
+ % Génome
+ % Background génétique
+ %\end{itemize}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Concept statistique}
 \subsection{Modèle de base}
 \begin{frame}
+  \frametitle{Décomposition de la variation phénotypique (1/2)}
+  
+  Pour un génotype dans un environnement donné on a :
+
+  \begin{itemize}
+    \item<2-> P : Phénotype
+    \item<3-> $\mu$ : moyenne de la population
+    \item<4-> G : Valeur génétique
+    \item<5-> E : Environnement (macro $\neq$ micro, spécifique)
+  \end{itemize}
+
+  \onslide<6->{
+    \begin{align*}
+      P &= \mu + G + E
+    \end{align*}
+  }
+
 \end{frame}
 
 \begin{frame}
+  \frametitle{Décomposition de la variation phénotypique (2/2)}
+  
+  Pour un génotype dans un environnement donné on a :
+  \only<1>{
+    \[
+      G = [g_1 + g_i + g_n]
+    \]
+  }
+  
+  \only<2->{
+    \begin{itemize}
+      \item<2-> P : Phénotype
+      \item<2-> $\mu$ : moyenne de la population
+      \item<2-> G = $[g_1 + g_i + g_n]$ : Valeur génétique
+      \item<2-> E : Environnement (macro $\neq$ micro, spécifique)
+    \end{itemize}
+  }
+  
+  \onslide<3->{
+    \[
+      P = \mu + [g_1 + g_i + g_n] + E
+    \]
+  }
+
 \end{frame}
+
 
 \begin{frame}
+  \frametitle{Hértitabilité}
+
 \end{frame}
+
+
 
 \begin{frame}
-\end{frame}
+  \frametitle{Implications pour l'amélioration des plantes}
 
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
@@ -351,14 +403,6 @@
 \begin{frame}
 \end{frame}
 
-\begin{frame}
-\end{frame}
-
-\begin{frame}
-\end{frame}
-
-\begin{frame}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% -- Activité --%
@@ -377,579 +421,14 @@
 \item A envoyer: jemay.salomon@inrae.fr (45 min)
 \item Max: 3 pages/en pdf
 \end{itemize}
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --Apendix --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-\begin{frame}
-  \frametitle{}
-  Intra-plot diversification: major agroecological lever
-  \begin{itemize}
-  \item caveat: not used in breeding
-  \end{itemize}
-  
-
-  \bigskip
-  \pause
-
-  Challenge: combinatorial explosion
-  \begin{itemize}
-  \item strategy (here): quantitative genetics model to predict unobserved mixtures
-  \item \emph{joint} analysis of monovarietal and mixed stands to \emph{gradually} introduce mixing ability in breeding programs
-  \end{itemize}
-
-  \bigskip
-  \pause
-
-  Gaps of knowledge:
-  \begin{itemize}
-  \item Which experimental designs?
-  \item Which magnitude of genetic (co)variances?
-  \item Which genetic architectures?
-  \end{itemize}
-\end{frame}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% New section
- 
-\section{Case of varietal mixtures}
-
-\begin{frame}
-  \frametitle{Design and model}
-  \begin{center}
-    \begin{figure}
-      \begin{overprint}
-        \onslide<1>\includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{model_max_mix_only.png}%
-        \onslide<2>\includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{model_max_full.png}%
-        % \\Forst et al. 2017
-        \\
-
-        $(DBVxSBV)_{aa}$ corresponds to $SMA_{aa}$ from Forst et al (2019)
-        
-        \onslide<3>\includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{model_and_example.png}%
-        \onslide<4>
-        \bigskip
-        \begin{columns}[T]
-          \begin{column}{0.4\textwidth} 
-            \includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{Competmagic_3_rangs.png}%
-          \end{column}
-          \begin{column}{0.6\textwidth} 
-            \begin{itemize}
-            \item Genotyping : TaBW420k chip (200k polymorphic SNPs) of 100 lines from a MAGIC population
-              \bigskip
-            \item Phenotyping : Yield component for each row (central for monovarietal stands)
-              \bigskip
-            \item Use of alternate rank in early selection trials: \textbf{can we accurately estimate DBV, SBV and interaction variances?}
-            \end{itemize}   
-          \end{column}
-        \end{columns}
-      \end{overprint}
-    \end{figure}
-  \end{center}
-
-  % Mettre en avant le fait que le dispositif rang alterné permet de faciliter l’analyse en mélange variétal où l’on a pas accès aux fréquences, phase précoce de sélection
-\end{frame}
-
-\begin{frame}
-  \frametitle{Simulations}
-  \begin{itemize}
-      \item Simulations based on experimental design
-      \begin{itemize}
-      \item 3-way component mixtures (alternate rows)
-      \item per line: 2 monovarietal stands + 4 mixed stands 
-      \item Total of around 1000 rows (no replicates) 
-      \item Parameter values: Montazeaud et al. 2023 + our data % ajouter les valeurs, en petit non présenté?
-      \end{itemize}
-      \item Test of design accuracy: addition of replicates (0 to 9)      
-  \end{itemize}
-  % \pause
-  \vspace{0.5cm}
-  \[
-    \boldsymbol{y} = X \boldsymbol{\beta} + Z_{DS} \, \textbf{BV}_{DS} + Z_{DxS} \, \textbf{DBVxSBV} + Z_e \, \boldsymbol{\epsilon}
-  \]
-  \vspace{-0.3cm}
-  \begin{itemize}
-      \item $\boldsymbol{\beta}$: fixed effects
-      \item $\textbf{BV}_{DS}$: correlated DBV and SBV effects
-      \item $\textbf{DBVxSBV}$: uncorrelated interactions between DBV and SBV% TODO: simplifier et citer package PlantMix
-  \end{itemize}
-  % simul: trial map wo/ replicates vs w/ replicates
-\end{frame}
-
-\begin{frame}
-  \frametitle{Results}
-  \begin{center}
-    \begin{figure}
-    \begin{overprint}
-  % estim accuracy of var_DBV and var_SBV
-  \onslide<1>\includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{biais_var_DBV_SBV.png}%
-
-  % estim accuracy of var(DBV,SBV)
- \onslide<2>\includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{biais_var_DBVxSBV.png}%
-
-  % estim accuracy of cov(DBVxSBV)
-  %\onslide<3>\includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{cor_DBV_SBV.png}%
-
-  % estim accuracy of BLUPs
-  \onslide<3>\includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{cor_BLUPs.png}% TODO: Ajouter une pharse de conclusion: 1) dispositif OK DBV/SBV 2) Testé sur le dispositif, SBV détecté sur yield 3) intérêt en sel. précoce
-        \end{overprint}
-    \end{figure}
-  \end{center}
-  % estim accuracy of var_DBV and var_SBV
-
-  % estim accuracy of cor(DBV,SBV)
-
-  % estim accuracy of var(DBVxSBV)
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% New section
-
-\section{Case of crop mixtures}
-
-\iffalse
-\subsection{Introduction}
-%diapos
-\begin{frame}
-  \frametitle{
-  \makebox[\linewidth][c]{
-    \parbox{0.9\linewidth}{\centering
-       \Large\bfseries From Sole Cropping to Intercropping: Key Issues and Knowledge Gaps
-    }
-  }
-}
-\vspace{-1cm}
-
- \begin{itemize}
- 
-  \item<1-> Genotype × sole-/inter-crop interactions (Demie et al., 2022)
-  \small
-  \begin{itemize}
-    \item<1-> Competitive interactions can decrease yields in intercropping.
-  \end{itemize}
-  
-  \vspace{0.3cm}
-  \item<2-> Limitations of current research on interspecific mixtures:
-  \begin{itemize}
-    \setbeamertemplate{itemize subitem}[ball]
-    \item<3-> The genetic diversity explored in previous studies remains too low. 
-    \item<4-> As a consequence, this limits the precision in estimating the genetic basis of social 
-    interactions or the access to their genetic architecture/determinism.
-  \end{itemize}
-\end{itemize}
-
-\end{frame}
-\fi
-
-\iffalse
-\subsection{Objectives}
-\begin{frame}
-\frametitle{Objectives}
-
-\vspace{-1cm}
-
-\begin{itemize}
-
-\Large\bfseries
-\setbeamertemplate{itemize subitem}[ball]
-
- \item<1->  \parbox[t]{0.95\linewidth}{% 
-Allow the joint analysis of sole-cropping and intercropping data from incomplete experimental designs.
-}
-
-\vspace{0.4cm}
- \item<2->  \parbox[t]{0.95\linewidth}{% 
-Enable breeders to gradually introduce selection for intercropping into breeding schemes currently focused on monocultures.
-}
-\end{itemize}
-
-\end{frame}
-\fi
-
-
-
-\subsection{Material and methods}
-
-\begin{frame}
-  \frametitle{Genetic model}
-
-  \only<1>{
-    % TODO: remove SIGV in IC or say explicitly that we ignore them
-    \begin{center}
-      \includegraphics[width=1\textwidth,height=0.90\textheight,keepaspectratio=true,trim=0 50 0 100=,clip=true]{figures/model_SIGV.png}%
-
-     % \bigskip
-% \vspace{-0.5cm}
-      Social intra-genotypic value: $SIGV := SBV^{SC} + (DBV \times SBV)^{SC}$
-    \end{center}
-  }
-  \only<2>{
-    % \vspace{-1cm}
-    % TODO: fix this
-    
-    % Yield $y$ of genotype $i$ from species $s_1$ mixed with genotype $j$ of species $s_2$ in block $k$:
-    
-    % {\Large
-    %   \setlength{\jot}{5pt}
-    %   \begin{align*}
-    %     y_{i(j)k}^{(s_1)}
-    %     = \; & \; \delta_{i(j)k}^{(s_1)} \, \mu^{(s_1)}
-    %            + \alpha_k^{(s_1)} \\
-    %          &+ DBV_i^{(s_1)}
-    %            + \delta_{j \ne 0} \, SBV_j^{(s_2)} \\
-    %          &+ \delta_{j \ne 0} \, (DBV^{(s_1)} \times SBV^{(s_2)})_{ij} \\
-    %          &+ \delta_{ii(j)k}^{(s_1)} \, SIGV_i
-    %            + \epsilon_{i(j)k}^{(s_1)}
-    %   \end{align*}
-    % }
-
-    Intercrop of $i$ (species $s_1$) and $j$ (species $s_2$):
-    \begin{align*}
-      Y_{i(j)} &= \mu^{s_1,IC} + \alert{DBV_i} + SBV_j^{IC} + (DBV \times SBV)_{ij}^{IC} \\
-      Y_{j(i)} &= \mu^{s_2,IC} + DBV_j + SBV_i^{IC} + (DBV \times SBV)_{ji}^{IC}  \\
-    \end{align*}
-
-    Sole crop of $i$ and sole crop of $j$:
-    \begin{itemize}
-    \item $Y_{i} = \mu^{s_1,SC} + \alert{DBV_i} + SIGV_i$
-    \item $Y_{j} = \mu^{s_2,SC} + DBV_j + SIGV_j$
-    \end{itemize}
-  }
-\end{frame}
-
-%diapos
-\begin{frame}[fragile]
-  \frametitle{Simulation and inference}
-
-% \vspace{-1cm}
-\setlength{\itemsep}{1em}
-\large
-\begin{itemize}
-  \item<1-> 200 wheat genotypes +  2 pea genotypes (testers)
-  \item<2-> 3 experimental designs of 400 plots each:
-  \pause
-    \begin{itemize}
-    \setbeamertemplate{itemize subitem}[ball]
-      \setlength{\itemsep}{0.5em}
-      \item Sole\_only (complete): sole cropping system (SC)
-      \item Inter\_only (sparse): intercropping system (IC)
-      \item Sole\_inter\_50 (sparse): combination of SC and IC
-    \end{itemize}
-  % \item<3-> Simulated phenotype: grain yield, 100 replicates
-  \item<3-> Parameter values: {\small Moutier et al. (2022); Haug et al. (2023)}
-    % \bigskip
-  \item<4-> Varying proportions of var(SIGV) relative to var(DBV)
-    \bigskip
-  \item<5-> Software implementation: \verb+plantmix+ (R package)
-\end{itemize}
-\end{frame}
-
-%diapos
-\begin{frame}
-  \frametitle{Panel and field trial}
-  \only<1>{
-    \begin{columns}[T]
-
-      \begin{column}{0.45\textwidth} 
-        \small
-        \begin{itemize}  
-          \setbeamertemplate{itemize item}[ball]
-          \setlength{\itemsep}{0.7em}  
-        \item 200 wheat varieties
-          \begin{itemize}
-          \item 395k SNPs %(after quality control)
-          \end{itemize}
-        \item 2 pea varieties (testers)
-        \item All sole and intercrops in 2 complete blocks
-      \item Traits per species: grain yield, TKW, final height, SLA, soil cover
-      \end{itemize}
-      \end{column}
-      \begin{column}{0.72\textwidth} 
-        % \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{figures/plan_essai.jpg}
-        \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{figures/layout_GWASwp}
-        \hspace{-0.4cm}
-      \end{column}
-    \end{columns}
-  }
-  \only<2>{
-    \bigskip
-    
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/images_essai.png}
-
-    \begin{center}
-      {\small Le Moulon, Saclay, 2025} 
-    \end{center}
-}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%% --Results --%
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\subsection{Results}
-
-\begin{frame}
-  \frametitle{Accuracy of parameter estimation}
-  \begin{textblock*}{60pt}(5pt,5pt)
-    {\small Simul.}
-  \end{textblock*}
-
-  \only<1>{
-    \begin{center}
-      \includegraphics[width=0.9\textwidth,height=0.9\textheight,keepaspectratio]{figures/dbv.png}
-    \end{center}
-  }
-
-  \only<2->{
-    \begin{columns}[T]
-      \hspace{0.2cm}
-      \begin{column}{0.70\textwidth} 
-        \only<2->{\includegraphics[width=1\textwidth,height=\textheight,keepaspectratio]{figures/accuracy.png}}
-      \end{column}
-      
-      \hspace{-0.4cm}
-      \begin{column}{0.47\textwidth} 
-        {
-          \small
-          \setbeamertemplate{itemize item}[ball]
-          \begin{itemize}
-            
-          \item<3->  \parbox[t]{0.95\linewidth}{% 
-              \textbf{Experimental design}, 
-              \textbf{genetic effects}, and the ratio $\sigma^2_{SIGV}/\sigma^2_{DBV}$ 
-              influence \textbf{accuracy}.
-            }
-            
-            \vspace{0.3cm}
-          \item<4-> \parbox[t]{0.95\linewidth}{%
-              \textbf{Inter\_only provides the most accurate estimates}.
-            }
-            
-            \vspace{0.3cm}
-          \item<5-> \parbox[t]{0.95\linewidth}{%
-              \textbf{Sole\_inter\_50 helps decoupling SIGV and DBV}, improving their estimation.
-            }
-          \end{itemize}
-        }
-      \end{column}
-    \end{columns}
-  }
-\end{frame}
-
-
-
-%diapos
-\begin{frame}
-  \frametitle{Variance estimates for grain yield}
-  \begin{textblock*}{60pt}(5pt,5pt)
-    {\small Field\\trial}
-  \end{textblock*}
-
-  \vspace{-1cm} 
-  \begin{center}
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/variances.png}
-  \end{center}
-  
-  \begin{itemize}
-  % \vspace{-0.3cm}
-    \small
-  \item Social genetic variances $ < $ %were smaller than
-    variance of direct breeding values
-  \end{itemize}
-\end{frame}
-
-
-%diapos
-\begin{frame}
-  \frametitle{Correlation estimates for grain yield}
-  \begin{textblock*}{60pt}(5pt,5pt)
-    {\small Field\\trial}
-  \end{textblock*}
-
-  \vspace{-1cm}
-  \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{figures/cor_ds_e.png}
-  \vspace{0.4cm}
-  
-  \begin{itemize}
-    \small
-    \item<1-> Unexpected positive correlation observed between DBV and SBV \\
-      $\Rightarrow$ favorable wheat–pea interactions
-  \end{itemize}
-  
-\end{frame}
-
-
-%diapos
-\begin{frame}
-  \frametitle{Meta-GWAS on grain yield \newline [DBV, SBV, SIGV]}
-  \begin{textblock*}{60pt}(5pt,5pt)
-    {\small Field\\trial}
-  \end{textblock*}
-
-  \vspace{-0.5cm}
-
-  \begin{columns}[T,onlytextwidth]
-    % Left column: figure with footnote
-    \begin{column}{0.55\textwidth}
-      \centering
-      \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{figures/meta_gwas.png}
-      
-      \vspace{0.2cm}
-      % {\footnotesize Composite hypothesis test results: SNPs associated with at least 2 traits. 
-      %  -log10(p-values) along chromosomes; significant SNPs in red. The horizontal solid red 
-      %  line indicates the significance threshold (FDR a nominal level of 0.05)
-      % }
-      {\footnotesize H0 rejected when a SNP is associated with at least two traits (FDR controlled at 5\%)}
-    \end{column}
-
-    % Right column: items with parbox
-    \begin{column}{0.45\textwidth}
-      \parbox[t]{\linewidth}{
-    \begin{itemize}
-    
-  		\vspace{1cm}
-  		\small
- 		 \item \parbox[t]{0.95\linewidth}{% 
- 		 \bfseries 9 pleiotropic regions detected
- 		 }
- 		 
- 		 \vspace{0.2cm}
-   		 \begin{itemize}
-     		 \setbeamertemplate{itemize subitem}[ball]
-     		 \item  \parbox[t]{0.95\linewidth}{% 
-             Not detected in single-trait GWAS.
-     		 }
-     		 
-     		 \vspace{0.3cm}
-     		 \item  \parbox[t]{0.95\linewidth}{% 
-             Further analyses underway for validation.
-     		 }
-     		 
-    		\end{itemize}
-	\end{itemize}
-      }
-      
-    \end{column}
-  \end{columns}
-
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%% Conclusion
-
-\subsection{Conclusions and perspectives}
-
-\begin{frame}
-  \frametitle{Take-Home Messages}
-{
- \small
-  \setbeamertemplate{itemize item}[square]
-  \setlength{\itemsep}{6em}
-  \begin{itemize}
-  \item<1-> \textbf{Joint modeling of sole and intercrops + incomplete design + genomic relationship matrix: accurate estimations of breeding values.}
-      
-    \vspace{0.2cm}
-  \item<2-> \textbf{Field data analyses indicated that social genetic variances were small, % to intermediate, 
-      but still contribute significantly} %to phenotypic variance
-      
-    \vspace{0.2cm}
-  \item<3-> \textbf{Methodology allowing breeders to fine-tune their program depending on
-      the proportion of ressources they want to allocate to sole vs intercrops.}
-      
-    \vspace{0.2cm}
-  \item<4-> \textbf{Preliminary GWAS identified several regions associated with at least two types of breeding values.} %traits.
-      
-    \vspace{0.2cm}
-  \item<5-> \textbf{Analyze the other traits, notably those from drone imaging (PhD V.~Freitas).} %traits.
-  \end{itemize}
-}
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%% --FIN --%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Acknowledgments}
-  % \vspace{-0.8cm}
-  % \centering
-  % \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{remerc.png}
-  \begin{columns}
-    \begin{column}{0.55\textwidth}
-      \begin{itemize}
-      \item \textbf{GQE}: J.~Enjalbert, T.~Flutre, C.~Bourhis-Lézier, V.~Freitas
-        \begin{itemize}
-        \item M.~Lu, P.~Briens, S.~Roty, T.~Linares, F.~Legendre, J.~Hélie, J.~Le Gall, L.~Salze
-        \item E.~Akaffou, L.~Wang, M.~Mesnil, D.~Wang, F.~Petit, R.~Diallo, U.~Louis, C.~Coste, F.~Alléhaut
-        \end{itemize}
-        \bigskip
-      \item \textbf{UEVS}: C.~Bédard, F.~Barriuso, D.~Sowamber, J.~Cannesson, O.~Minguy, A.~Belkian
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      \begin{itemize}
-      \item \textbf{ECOSYS}: J.-M.~Gilliot
-        \bigskip
-      \item \textbf{BIOGER}: T.~Vidal, M.~Delrieu
-        \bigskip
-      \item \textbf{IGEPP}: N.~Moutier, R.~Perronne
-        \bigskip
-      \item \textbf{AGAP}: A.~Baranger
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-
-
-% After your last numbered slide
 \appendix
 \newcounter{finalframe}
 \setcounter{finalframe}{\value{framenumber}}
-
-%\begin{frame}
-%  \frametitle{Supp 1: univariate GWAS on grain yield [DBV, SBV, SIGV]}
-%
-%  \vspace{-1cm} 
-%  \begin{center}
-%    \includegraphics[width=0.7\textwidth,height=0.7\textheight,keepaspectratio]{figures/init_pval.png}
-%    
-%    \vspace{-0.5cm}
-%      {\footnotesize H0 rejected per breeding value}
-%  \end{center}
-%  
-% \end{frame}
-
-
-
-\begin{frame}
-  \frametitle{Supp 1: meta-GWAS on grain yield [DBV, SBV, SIGV]}
-
-  \vspace{-0.7cm} 
-  \begin{center}
-    \includegraphics[width=0.70\textwidth,height=0.70\textheight,keepaspectratio]{figures/local_score.png}
-    
-    \vspace{-0.2cm}
-    {\footnotesize
-	Local scores along chromosome 4B. The boxes represent the significant zones identified. 
-	The threshold was set to $\xi = 2$, and the nominal FDR level is fixed at 0.05.}
-
-  \end{center}
-  
-  
-\end{frame}
-
 
 \setcounter{framenumber}{\value{finalframe}}
 

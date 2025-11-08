@@ -1,0 +1,13 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Contexte et motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{Concept theorique}{8}{0}{2}
+\beamer@subsectionintoc {2}{1}{Caractères quantitatifs versus caractères qualitatifs}{18}{0}{2}
+\beamer@sectionintoc {3}{Concept statistique}{28}{0}{3}
+\beamer@subsectionintoc {3}{1}{Modèle de base}{33}{0}{3}
+\beamer@sectionintoc {4}{Application à l'amélioration des plantes}{38}{0}{4}
+\beamer@sectionintoc {5}{Activité - 45 min}{43}{0}{5}
+\beamer@sectionintoc {6}{Case of varietal mixtures}{48}{0}{6}
+\beamer@sectionintoc {7}{Case of crop mixtures}{57}{0}{7}
+\beamer@subsectionintoc {7}{1}{Material and methods}{58}{0}{7}
+\beamer@subsectionintoc {7}{2}{Results}{68}{0}{7}
+\beamer@subsectionintoc {7}{3}{Conclusions and perspectives}{77}{0}{7}

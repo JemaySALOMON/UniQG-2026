@@ -3,7 +3,7 @@ Introduction to Quantitative Genetics — UniQG-2026
 Jemay SALOMON
 2025–2026 Academic Year
 
-- [Introduction](#introduction)
+- [Introduction](#Introduction)
 - [Informations sur le cours](#-informations-sur-le-cours)
 - [Objectifs d’apprentissage](#-objectifs-dapprentissage)
 - [Horaire des cours](#-horaire-des-cours)
@@ -28,7 +28,6 @@ selection and genetic improvement.
 ------------------------------------------------------------------------
 
 # Informations sur le cours
-
 - **Enseignant :** Jemay SALOMON  
 - **Institution :** Université Quisqueya  
 - **Niveau :** Master  

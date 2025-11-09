@@ -25,6 +25,8 @@ analytical tools needed to understand genetic variation, estimate
 heritability, genetic (co)variance, and apply quantitative methods for
 selection and genetic improvement.
 
+*The course is taught in French; please note that most course materials are also in French.*
+
 ---
 
 # Course Information
@@ -40,10 +42,9 @@ selection and genetic improvement.
 # Learning Objectives
 
 By the end of this course, students will be able to:
-
 - Understand the genetic basis of quantitative traits  
-- Estimate genetic parameters (heritability, breeding values, variances, genetic correlations)  
-- Apply linear and mixed models to quantitative data  
+- Estimate genetic parameters (heritability, genetic (co)variances, etc.)  
+- Understand and apply linear and mixed models 
 - Use R for quantitative genetics data analysis
 
 ---

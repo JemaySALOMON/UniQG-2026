@@ -50,15 +50,15 @@ selection and genetic improvement.
 
 # Horaire des cours
 
-| Date       | Cours                                    |
-|:-----------|:-----------------------------------------|
+| Date       | Cours                                    |  Examens
+|:-----------|:-----------------------------------------|:---------------------|
 | 11/11/2025 | Introduction à la génétique quantitative |
-| 25/11/2025 | À venir                                  |
-| 02/12/2025 | À venir                                  |
-| 09/12/2025 | À venir                                  |
-| 16/12/2025 | À venir                                  |
-| 06/01/2026 | À venir                                  |
-| 13/01/2026 | À venir                                  |
+| 25/11/2025 | Le Modèle Génétique et le cas biallélique|
+| 02/12/2025 | Covariances entre apparentés| Intra |
+| 09/12/2025 | TD: Modèle linéaire mixte & analyse de données| |
+| 16/12/2025 | À Réponse à la sélection et correlation génétique| |
+| 06/01/2026 | TD : Interactions GXE | |
+| 13/01/2026 | Introduction à la génétique quantitative appliqué aux mélanges variétaux| Final|
 
 🗓️ *Durée du cours :* **du 11 novembre 2025 au 13 janvier 2026**
 

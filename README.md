@@ -1,26 +1,75 @@
-# UniQG-2026 — Quantitative Genetics
+Introduction to Quantitative Genetics — UniQG-2026
+================
+Jemay SALOMON
+2025–2026 Academic Year
 
-Welcome to the **Quantitative Genetics** course repository for the 2025–2026 academic year.
+- [Introduction](#introduction)
+- [Informations sur le cours](#-informations-sur-le-cours)
+- [Objectifs d’apprentissage](#-objectifs-dapprentissage)
+- [Horaire des cours](#-horaire-des-cours)
+- [Outils recommandés](#-outils-recommandés)
+  - [Installation des packages
+    nécessaires](#-installation-des-packages-nécessaires)
 
-This repository contains lecture slides, practical exercises, datasets, and additional resources for the course.
+# Introduction
 
----
+Welcome to the **Introduction to Quantitative Genetics** course
+repository for the **2025–2026 academic year**, taught by **Jemay
+SALOMON** at **Université Quisqueya**.
 
-## 📅 Course Schedule
+This course introduces the **fundamental concepts and applications of
+quantitative genetics** for **Master’s students**, with a particular
+focus on **plant breeding**.  
+It aims to provide students with the theoretical foundation and
+analytical tools needed to understand genetic variation, estimate
+heritability, genetic (co)variance and apply quantitative methods for
+selection and genetic improvement.
 
-| Date | Topic |
-|:------|:---------------------------------------------|
+------------------------------------------------------------------------
+
+# Informations sur le cours
+
+- **Enseignant :** Jemay SALOMON  
+- **Institution :** Université Quisqueya  
+- **Niveau :** Master  
+- **Période :** du 11 novembre 2025 au 13 janvier 2026  
+- **Thème :** Génétique quantitative appliquée à la sélection végétale
+
+------------------------------------------------------------------------
+
+# Objectifs d’apprentissage
+
+À la fin de ce cours, les étudiants seront capables de :
+
+- Comprendre la base génétique des caractères quantitatifs  
+- Estimer les paramètres génétiques (héritabilité, valeurs génétiques,
+  variances, correlations génétiques)  
+- Appliquer des modèles linéaires et mixtes aux données quantitatives  
+- Utiliser R pour l’analyse de données en génétique quantitative
+
+------------------------------------------------------------------------
+
+# Horaire des cours
+
+| Date       | Cours                                    |
+|:-----------|:-----------------------------------------|
 | 11/11/2025 | Introduction à la génétique quantitative |
-| 25/11/2025 | À venir |
-| 02/12/2025 | À venir |
-| 09/12/2025 | À venir |
-| 16/12/2025 | À venir |
-| 06/01/2026 | À venir |
-| 13/01/2026 | À venir |
+| 25/11/2025 | À venir                                  |
+| 02/12/2025 | À venir                                  |
+| 09/12/2025 | À venir                                  |
+| 16/12/2025 | À venir                                  |
+| 06/01/2026 | À venir                                  |
+| 13/01/2026 | À venir                                  |
 
-🗓️ *Course dates:* **11 November 2025 – 13 January 2026**
+🗓️ *Durée du cours :* **du 11 novembre 2025 au 13 janvier 2026**
 
----
+------------------------------------------------------------------------
 
-## 📂 Repository Structure
+# Outils recommandés
 
+- **Logiciel :** [R](https://cran.r-project.org/) (version ≥ 4.3)  
+- **Environnement :** [RStudio](https://posit.co/download/rstudio/)
+
+## 📦 Installation des packages nécessaires
+
+`{r setup, eval=FALSE} install.packages(c("tidyverse", "lme4", "ggplot2"))`

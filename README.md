@@ -72,3 +72,10 @@ selection and genetic improvement.
 ## Installation des packages nécessaires
 
 `{r setup, eval=FALSE} install.packages(c("tidyverse", "lme4", "ggplot2"))`
+
+## 📧 Contact
+
+**Enseignant :** Jemay SALOMON  
+**Email :** [jemay.salomon@inrae.fr](mailto:jemay.salomon@inrae.fr)  
+
+

@@ -60,7 +60,7 @@ selection and genetic improvement.
 | 06/01/2026 | TD : Interactions GXE | |
 | 13/01/2026 | Introduction à la génétique quantitative appliqué aux mélanges variétaux| Final|
 
-🗓️ *Durée du cours :* **du 11 novembre 2025 au 13 janvier 2026**
+*Durée du cours :* **du 11 novembre 2025 au 13 janvier 2026**
 
 ------------------------------------------------------------------------
 
@@ -69,6 +69,6 @@ selection and genetic improvement.
 - **Logiciel :** [R](https://cran.r-project.org/) (version ≥ 4.3)  
 - **Environnement :** [RStudio](https://posit.co/download/rstudio/)
 
-## 📦 Installation des packages nécessaires
+## Installation des packages nécessaires
 
 `{r setup, eval=FALSE} install.packages(c("tidyverse", "lme4", "ggplot2"))`

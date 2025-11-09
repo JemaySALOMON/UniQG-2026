@@ -1,8 +1,7 @@
 Introduction to Quantitative Genetics — UniQG-2026
 ================
-Jemay SALOMON 
 
-2025–2026 Academic Year
+**2025–2026 Academic Year**
 
 - [Introduction](#Introduction)
 - [Informations sur le cours](#informations-sur-le-cours)

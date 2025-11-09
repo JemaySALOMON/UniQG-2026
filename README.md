@@ -50,15 +50,15 @@ By the end of this course, students will be able to:
 
 # Schedule
 
-| Date       | Course                                           | Exams |
+| Date       | Course                                          | Exams |
 |:-----------|:-----------------------------------------------|:------|
-| 11/11/2025 | Introduction à la génétique quantitative       |       |
+| 11/11/2025 | Introduction à la génétique quantitative |       |
 | 25/11/2025 | Le Modèle génétique et le cas biallélique      |       |
-| 02/12/2025 | Covariances between relatives                   | Intra |
-| 09/12/2025 | TD 1: Mixed linear model & Data Analysis       |       |
-| 16/12/2025 | Response to selection & Genetic correlation   |       |
-| 06/01/2026 | TD 2: GXE interactions                          |       |
-| 13/01/2026 | Introduction to applied quantitative genetics in mixtures | Final |
+| 02/12/2025 | Covariances entre apparentés         | Intra |
+| 09/12/2025 | TD 1: Modèle linéaire mixte et Analyse de donées |       |
+| 16/12/2025 | Réponse à la sélection et corrélation génétique |       |
+| 06/01/2026 | TD 2: Interactions  GXE                          |       |
+| 13/01/2026 | Introduction à la génétique quantitative appliquée aux mélanges | Final |
 
 *Course duration:* **11 November 2025 – 13 January 2026**
 
@@ -74,7 +74,6 @@ By the end of this course, students will be able to:
 ```r
 install.packages(c("tidyverse", "lme4", "ggplot2"))
 ```
-
 ## 📧 Contact
 **Email :** [jemay.salomon@inrae.fr](mailto:jemay.salomon@inrae.fr)  
 

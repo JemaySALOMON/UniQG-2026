@@ -170,7 +170,7 @@
 
 
 \begin{frame}
-  \frametitle{Consequences}
+  \frametitle{Conséquences}
   \begin{center}
     
  \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/yield.png}%
@@ -386,12 +386,123 @@
 
 \begin{frame}
   \frametitle{Hértitabilité}
+  
+   \only<1-2>{
+   
+     La variance de la distribution phénotypique se calcule comme la variance de la somme de
+  deux variables aléatoires.
+    \[
+      V(P) = V(G) + V(E) + 2cov(G, E)\quad \text{Eq.~(1)}
+    \]
+    
+    où $cov(G,E)$ est la covariance entre les effets génotypiques et environnementaux.
+    
+    \begin{itemize}
+    \item<2-> En espérance $cov(G,E) = 0$ si les valeurs des génotypes sont élaborées 
+    de manière indépendantes des valeurs environnementales (randomisation des expériences)
+    \end{itemize}
+  }
+  
+  \only<3>{
+  L’équation 1 devient :
+  \[
+  V(P) = V(G) + V(E)\quad \text{Eq.~(2)}
+   \]
+  }
+  
+  
+ \only<4->{
+  Héritabilité au sens large, $H^2_{SL}$:
+  
+\[
+H^2_{SL} = \frac{V(G)}{V(P)} = \frac{V(G)}{V(G) + V(P)} 
+\]
+
+
+\begin{itemize}
+\setlength{\itemsep}{0.6em}
+  \item<5->quantifier Quantifier la part de la variation d’origine génétique dans la variation phénotypique totale.
+  \item<6-> L’héritabilité \(H^2 \in [0,1]\) : \(H^2 \uparrow \Rightarrow\) plus la variation phénotypique est due aux gènes.
+
+\end{itemize} }
+
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{Interactions entre le génotype et l’environnement}
+
+  \centering
+  \only<1>{
+    \includegraphics[width=0.9\textwidth,keepaspectratio]{figures/GE_1.png}
+    \vspace{0.5em}\par\footnotesize Priyadarshan, P.M. (2019)
+  }
+  \only<2>{
+    \includegraphics[width=0.9\textwidth,keepaspectratio]{figures/GE_2.png}
+    \vspace{0.5em}\par\footnotesize Priyadarshan, P.M. (2019)
+  }
+  \only<3>{
+    \includegraphics[width=0.9\textwidth,keepaspectratio]{figures/GE_3.png}
+    \vspace{0.5em}\par\footnotesize Priyadarshan, P.M. (2019)
+  }
+
+
+  \only<4->{
+    \vspace{1em}
+    L’équation 1 devient :
+    \[
+      P = G + E + G\times E \quad \text{(Eq.~3)}
+    \]
+
+    \begin{itemize}
+      \setlength{\itemsep}{0.6em}
+      \item<5-> Stabilité des génotypes (adaptation générale vs adaptation spécifique)
+      \item<6-> Prise en compte de $V(G\times E)$ dans les stratégies de sélection
+    \end{itemize}
+  }
+
+\end{frame}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Application à l'amélioration des plantes}
+
+\begin{frame}
+  \frametitle{Application à l'amélioration des plantes}
+
+  Objectifs :
+  \begin{itemize}
+    \setlength{\itemsep}{0.6em}
+    \item<1-> Choisir les génotypes à garder
+    \item<2-> Choisir les génotypes pour la prochaine génération (croisement)
+    \item<3-> Répéter les deux étapes précédentes \(\Rightarrow\) "amélioration de la population"
+  \end{itemize}
+
+  \vspace{0.5em} % petit espace avant la partie suivante
+
+  But :
+  \begin{itemize}
+    \setlength{\itemsep}{0.6em}
+    \item<4-> Obtenir un gain génétique \(\Rightarrow\) "progrès génétique"
+    \item<5-> Efficacement
+    \item<6-> À court terme mais aussi à long terme
+  \end{itemize}
+
+  \vspace{0.5em}
+
+  Points clés :
+  \begin{itemize}
+    \setlength{\itemsep}{0.6em}
+    \item<7-> Évaluer les génotypes pour leur descendance attendue
+    \item<8-> Maintenir la diversité génétique
+  \end{itemize}
+
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -404,7 +515,7 @@
 \begin{itemize}
 \setbeamertemplate{itemize item}[square]
 \setlength{\itemsep}{0.6em}
-\item TD 1
+\item Code R
 \end{itemize}
 \end{frame}
 

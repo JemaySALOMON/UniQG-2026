@@ -4,10 +4,10 @@ Jemay SALOMON
 2025–2026 Academic Year
 
 - [Introduction](#Introduction)
-- [Informations sur le cours](#-informations-sur-le-cours)
-- [Objectifs d’apprentissage](#-objectifs-dapprentissage)
-- [Horaire des cours](#-horaire-des-cours)
-- [Outils recommandés](#-outils-recommandés)
+- [Informations sur le cours](#informations-sur-le-cours)
+- [Objectifs d’apprentissage](#objectifs-dapprentissage)
+- [Horaire des cours](#horaire-des-cours)
+- [Outils recommandés](#outils-recommandés)
   - [Installation des packages
     nécessaires](#-installation-des-packages-nécessaires)
 

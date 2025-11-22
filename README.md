@@ -64,7 +64,7 @@ By the end of this course, students will be able to:
 
 
 <!-- LINK DEFINITIONS -->
-[lecture1]: https://inrae-fr.zoom.us/rec/share/iKl43Ovy-TaV1czsdKSknzJqCizzYliKqQWhn5nKcsifWFwYd2qi7fuYoMPfolcB.ubn5X29MvOMx6N3c
+[lecture1]: https://inrae-fr.zoom.us/rec/share/EA2Qnruvs_EP3zUpnUVCbNrtXXk6D5AIE7YqRf3HY0Yn5pVGPGQ_VV3yqHbEVhfV.cV41p-sq9-Ed46om 
 
 
 

@@ -49,17 +49,19 @@ By the end of this course, students will be able to:
 
 ---
 
+
 # Schedule
 
-| Date       | Course                                          | Exams |
-|:-----------|:-----------------------------------------------|:------|
-| 11/11/2025 | Introduction à la génétique quantitative |       |
-| 25/11/2025 | Le Modèle génétique et le cas biallélique      |       |
-| 02/12/2025 | Covariances entre apparentés         | Intra |
-| 09/12/2025 | TD 1: Modèle linéaire mixte et Analyse de donées |       |
-| 16/12/2025 | Réponse à la sélection et corrélation génétique |       |
-| 06/01/2026 | TD 2: Interactions  GXE                          |       |
-| 13/01/2026 | Introduction à la génétique quantitative appliquée aux mélanges | Final |
+| Date       | Course                                                         | Link (videos)                                                                                                   | Short link | Exams |
+|:-----------|:---------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------|:-----------|:-------|
+| 11/11/2025 | Introduction à la génétique quantitative                       | https://inrae-fr.zoom.us/rec/share/iKl43Ovy-TaV1czsdKSknzJqCizzYliKqQWhn5nKcsifWFwYd2qi7fuYoMPfolcB.ubn5X29MvOMx6N3c (PW: &.5K6SP3) | https://tinyurl.com/intro-gq-11-11-25 |        |
+| 25/11/2025 | Le Modèle génétique et le cas biallélique                      | —                                                                                                                | —          |        |
+| 02/12/2025 | Covariances entre apparentés                                   | —                                                                                                                | —          | Intra |
+| 09/12/2025 | TD 1: Modèle linéaire mixte et Analyse de données              | —                                                                                                                | —          |        |
+| 16/12/2025 | Réponse à la sélection et corrélation génétique                | —                                                                                                                | —          |        |
+| 06/01/2026 | TD 2: Interactions G×E                                         | —                                                                                                                | —          |        |
+| 13/01/2026 | Introduction à la génétique quantitative appliquée aux mélanges | —                                                                                                                | —          | Final |
+
 
 *Course duration:* **11 November 2025 – 13 January 2026**
 

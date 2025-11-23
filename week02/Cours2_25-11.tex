@@ -215,7 +215,7 @@
 
   Valeur génétique d'un génotype $A_iA_j$ :
   \[
-    G_{ij} = \alpha_i + \alpha_j + B_{ij}
+    G_{ij} = \alpha_i + \alpha_j + \beta_{ij}
   \]
 
 \[
@@ -337,19 +337,243 @@ où \(V_P\) est la variance phénotypique totale.
 %% --section --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Généralisation du modèle}
+\begin{frame}
+\frametitle{Généralisation à plusieurs locus}
 
+\[
+G_{l_{ij}} = \alpha_{l_i} + \alpha_{l_j} + \beta_{l_{ij}}
+\]
+
+\begin{itemize}
+  \item \(\alpha_{l_i}\) : effet additif de l’allèle \(i\) au locus \(l\)  
+  \item \(\alpha_{l_j}\) : effet additif de l’allèle \(j\) au locus \(l\)  
+  \item \(\beta_{l_{ij}}\) : déviation due à la dominance\(ij\) au locus \(l\)
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Généralisation à plusieurs locus}
+\begin{itemize}
+  \item En l'absence d'épistasie et pour des loci en équilibre de liaison : 
+  \textbf{les variances s'additionnent} pour un caractère quantitatif.
+  \item Variance additive totale : 
+  \[
+    V_A = 2 \sum_{\text{locus}} V(\alpha_{\text{loc}}) = 2 \sum_{\text{locus}} E(\alpha_{i,\text{loc}}^2)
+  \]
+  \item Variance de dominance totale : 
+  \[
+    V_D = \sum_{\text{locus}} V(\beta_{\text{loc}}) = \sum_{\text{locus}} E(\beta_{ij,\text{loc}}^2)
+  \]
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Signification génétique des effets additifs}
+
+\begin{itemize}
+  \item \textbf{Effet moyen d'un allèle} : valeur moyenne d'un allèle en combinaison avec tous les autres.
+  \item Dépend de l'effet biologique propre et des \textbf{fréquences alléliques}.
+  \item Les variances \textbf{diffèrent selon la population} et au cours du temps.
+  \item On peut utiliser un \textbf{modèle biologique} pour fixer les contributions des allèles/génotypes.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Cas d'une population biallélique (Fisher)}
+
+\begin{itemize}
+  \item Population panmictique, 1 locus, 2 allèles : B et b, fréquences \(p\) et \(q\)
+  \item Trois génotypes possibles :
+  \[
+    BB: p^2,\quad Bb: 2pq,\quad bb: q^2
+  \]
+  \item Valeurs phénotypiques moyennes arbitraires mais fixes : \(Y_{BB}, Y_{Bb}, Y_{bb}\)
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Cas d'une population biallélique (Fisher)}
+
+\[
+c = \frac{Y_{BB}+Y_{bb}}{2},\quad 
+a = \frac{Y_{BB}-Y_{bb}}{2},\quad
+d = Y_{Bb}-c
+\]
+
+\begin{itemize}
+  \item \(d\) : paramètre lié à la \textbf{dominance} de B sur b
+  \item Degré de dominance : \(d/a\)
+  \begin{itemize}
+    \item \(d/a = 1\) : dominance complète
+    \item \(0<d/a<1\) : dominance partielle
+    \item \(d/a>1\) : superdominance
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Cas d'une population biallélique (Fisher)}
+    \begin{center}
+      \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/effets_alleliques.jpg}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Phénotype et valeur génétique}
+
+\[
+\begin{aligned}
+Y_{BB} &= \mu + G_{BB} = \mu + 2\alpha_B + \beta_{BB} \\
+Y_{Bb} &= \mu + G_{Bb} = \mu + \alpha_B + \alpha_b + \beta_{Bb} \\
+Y_{bb} &= \mu + G_{bb} = \mu + 2\alpha_b + \beta_{bb}
+\end{aligned}
+\]
+
+\[
+\mu = p^2 Y_{BB} + 2pq Y_{Bb} + q^2 Y_{bb} = c + a(p-q) + 2 p q d
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Effets moyens (\(\alpha_B, \alpha_b\))}
+
+\[
+\alpha_B = p Y_{BB} + q Y_{Bb} - \mu = q \alpha, \quad
+\alpha_b = -p \alpha
+\]
+
+\begin{itemize}
+  \item \textbf{Remarque :} L'effet moyen dépend des \textbf{fréquences alléliques}
+  \item Même allèle, même effet biologique, peut avoir un \textbf{effet moyen différent} selon la population
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Termes de dominance (\(\beta_{ij}\))}
+\[
+\beta_{BB} = -2 q^2 d,\quad
+\beta_{Bb} = 2 p q d,\quad
+\beta_{bb} = -2 p^2 d
+\]
+
+\begin{itemize}
+  \item Déviation entre valeurs \textbf{additives prédites} et \textbf{valeurs réelles}
+  \item Mesure de la dominance dans le modèle génétique
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Régression géno-phénotypique}
+
+\begin{itemize}
+  \item Dose d'allèle B : 0 (bb), 1 (Bb), 2 (BB)
+  \item Approximation additive : 
+  \[
+    \text{phénotype prédit} = 2 \alpha \times \text{dose}
+  \]
+  \item \textbf{Pente de la régression} = \(\alpha = \alpha_B - \alpha_b\)
+  \item La droite de régression passe près des génotypes les plus fréquents
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Régression géno-phénotypique}
+    \begin{center}
+      \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/regression_gp.png}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Composantes de la variance}
+
+\[
+\sigma^2_A = 2 E(\alpha_i^2) = 2(p \alpha_B^2 + q \alpha_b^2) = 2 p q \alpha^2
+\]
+
+\[
+\sigma^2_D = E(\beta_{ij}^2) = 4 p^2 q^2 d^2
+\]
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Composantes de la variance}
+Ci-dessous quelques exemples de changement des différentes composantes de la
+variance en fonction des fréquences alléliques
+    \begin{center}
+      \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/evolution_variance.jpg}
+    \end{center}
+
+\begin{itemize}
+  \item La variance additive est en bleu, la variance de dominance est en rouge.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Interprétation et implications}
+\begin{itemize}
+\setlength{\itemsep}{0.6em}
+  \item Variance additive maximale lorsque les fréquences sont équilibrées
+  \item Superdominance ou dominance complète : variance peut s'annuler
+  \item Relation \textbf{modèle biologique vs modèle statistique} n’est pas triviale
+  \item Importance pour la \textbf{cartographie génétique, QTL, et prédiction de valeur génomique}
+\end{itemize}
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Conséquences pour la pratique de l’amélioration génétique}
+\begin{frame}
+\frametitle{Conséquences pour la pratique de l’amélioration génétique}
+
+\begin{itemize}
+\setlength{\itemsep}{0.6em}
+  \item<2-> \textbf{Sélection sur la valeur génétique additive} :  
+    Rechercher les individus ayant la meilleure valeur additive
+
+  \item<3-> \textbf{Sélection sur les effets d'interaction} :  
+    Rechercher les couples dont la descendance présentera des effets de dominance ou d’interaction maximaux
+    
+  \item<4-> \textbf{Complémentarité des deux voies} :  
+    Dans la pratique, ces deux approches se complètent. Exemple :  
+    \begin{enumerate}
+      \item Sélection des parents à forte valeur additive  
+      \item Recherche des meilleurs couples/parents parmi les géniteurs retenus
+    \end{enumerate}
+\end{itemize}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% -- Activité --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Activité - 45 min}
+\section{Activité - 30 min}
 \begin{frame}
  \frametitle{Activité}
  

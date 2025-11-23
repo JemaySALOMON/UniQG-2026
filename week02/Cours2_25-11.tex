@@ -126,342 +126,209 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --Begin-Document --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Contexte et motivation}
-
+\section{Rappel}
 \begin{frame}
-  \frametitle{Population}
-  \begin{center}
-    \begin{figure}
-    \begin{overprint}
-    
- \onslide<1>\includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{figures/motivation_1.png}%
- 
-        \end{overprint}
-    \end{figure}
-  \end{center}
-\end{frame}
+  \frametitle{Rappel des concepts génétiques}
 
-
-\begin{frame}
-  \frametitle{Variation phénotypique}
-  \begin{center}
-    \begin{figure}
-    \begin{overprint}
-    
- \includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio=true]{figures/motivation_2.png}%
- 
-        \end{overprint}
-    \end{figure}
-  \end{center}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Variation phénotypique}
-  \centering
-  \begin{tikzpicture}
-    % Image in background
-    \node[inner sep=0pt, opacity=0.8] at (0,0)
-      {\includegraphics[width=0.95\textwidth,height=0.90\textheight,keepaspectratio]{figures/motivation_2.png}};
-    % Text in foreground (on top)
-    \node[align=center, text=black, font=\bfseries\Large] at (0,0)
-      {Gènes, Environnement,\\Gènes × Environnement};
-  \end{tikzpicture}
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Conséquences}
-  \begin{center}
-    
- \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/yield.png}%
-  {\footnotesize \newline cf-Principles of Plant Genetics and Breeding (2012)}
-  
-  \end{center}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%% --section --%
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Concept theorique}
-
-\subsection{Définition}
-
-\begin{frame}
- \frametitle{Déf.}
- \parbox[t]{0.95\linewidth}{
- \textbf {La génétique quantitative vise à relier la variation des traits complexes à leur base génétique, 
- pour mieux comprendre et prédire l’architecture génétique et    l’évolution des populations sur le long terme.}}
-\end{frame}
-
-
-
-\begin{frame}
-\frametitle{Déf.}
-
-\begin{itemize}
-    \item<1-> \textbf{Génétique quantitative classique}
-    \begin{itemize}
-    \setlength{\itemsep}{0.4em}
-        \item<2-> S'intéresse à la variation phénotypique globale et à sa base génétique, en considérant l'ensemble des gènes.
-        \item<3-> Analyse holistique de tous les gènes, sans distinguer contributions majeures ou mineures.
-        \item<4-> Fournit une vision globale de la génétique des traits complexes.
-    \end{itemize}
-\vspace{0.8cm}
-    \item<5-> \textbf{Génétique quantitative moléculaire}
-    \begin{itemize}
-    \setlength{\itemsep}{0.4em}
-        \item<6-> Se concentre sur l'association entre les sites d'ADN polymorphes et les variations phénotypiques.
-        \item<7-> Analyse détaillée de l'architecture génétique : gènes majeurs (analyse ciblée) et gènes mineurs (vue globale).
-        \item<8-> Permet de comprendre comment des loci spécifiques contribuent aux variations, utile pour la sélection ou la prédiction génétique.
-    \end{itemize}
-\end{itemize}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%% --section --%
-%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\subsection{Caractères quantitatifs versus caractères qualitatifs}
-\begin{frame}
-  \frametitle{Distribution des caractères quantitatifs et qualitatifs}
-
-  % ===============================
-  % ---- Partie 1 : Caractère quantitatif --
-  % ===============================
-  \only<1-5>{
-    \begin{columns}[T]
-      \hspace{0.2cm}
-      
-      % Colonne gauche : image
-      \begin{column}{0.70\textwidth} 
-        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/quanti.png}
-      \end{column}
-      
-      \hspace{-0.4cm}
-      % Colonne droite : texte
-      \begin{column}{0.47\textwidth} 
-        \small
-        \setbeamertemplate{itemize item}[ball]
-        \begin{itemize}
-          \item<2-> \parbox[t]{0.95\linewidth}{
-            Variation continue
-          }
-          \vspace{0.3cm}
-
-          \item<3-> \parbox[t]{0.95\linewidth}{
-           Sous contrôle de nombreux gènes
-          }
-          \vspace{0.3cm}
-
-          \item<4-> \parbox[t]{0.95\linewidth}{
-            Influencer largement par l'environnement
-            \\ ...
-          }
-           \vspace{0.3cm}
-          
-          \item<5-> \parbox[t]{0.95\linewidth}{
-            Ex. Hauteur des plantes, diamètre tige, etc...
-          }
-        \end{itemize}
-      \end{column}
-    \end{columns}
+  % ADN
+  \only<1>{
+    \textbf{ADN :} support de l'information génétique.\\[0.3cm]
+    \begin{center}
+      \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/ADN_double_helix.jpg}
+    \end{center}
   }
 
-
-  % ===============================
-  % ---- Partie 2 : Caractère qualitatif ----
-  % ===============================
-  \only<5-9>{
-    \begin{columns}[T]
-      \hspace{0.2cm}
-      
-      % Colonne gauche : image
-      \begin{column}{0.70\textwidth} 
-        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/quali.png}
-      \end{column}
-      
-      \hspace{-0.4cm}
-      % Colonne droite : texte
-      \begin{column}{0.47\textwidth} 
-        \small
-        \setbeamertemplate{itemize item}[ball]
-        \begin{itemize}
-          \item<6-> \parbox[t]{0.95\linewidth}{
-           Variation discontinue
-          }
-          \vspace{0.3cm}
-
-          \item<7-> \parbox[t]{0.95\linewidth}{
-            Sous controle d'un ou peu de gènes
-          }
-          \vspace{0.3cm}
-
-          \item<8-> \parbox[t]{0.95\linewidth}{
-          Peu ou pas d'influence de l'environnement
-          \\...
-          }
-          
-           \vspace{0.3cm}
-              \item<9-> \parbox[t]{0.95\linewidth}{
-          Ex. Couleur des fleurs, résistance/sensibilité, etc..
-          }
-        \end{itemize}
-      \end{column}
-    \end{columns}
+  % Gène
+  \only<2>{
+    \textbf{Gène :} unité fonctionnelle d'hérédité.\\[0.3cm]
+    \begin{center}
+      \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/gene_structure_simple.png}
+    \end{center}
   }
-\end{frame}
 
+  % Allèle
+  \only<3>{
+    \textbf{Allèle :} version alternative d'un même gène.\\[0.3cm]
+    \begin{center}
+      \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/allele_graphic.png}
+    \end{center}
+  }
+
+  % Locus
+  \only<4>{
+    \textbf{Locus :} position d'un gène ou allèle sur le génome.\\[0.3cm]
+    \begin{center}
+      \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/locus_diagram.png}
+    \end{center}
+  }
+
+  % Dominance
+  \only<5>{
+    \textbf{Dominance :} interaction entre allèles d’un même gène.\\[0.3cm]
+    \begin{center}
+      \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/dominance_recessive.jpg}
+    \end{center}
+  }
+
+  % Épistasie
+  \only<6>{
+    \textbf{Épistasie :} interaction entre gènes situés à des loci différents.\\[0.3cm]
+    \begin{center}
+      \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/epistasis.jpg}
+    \end{center}
+  }
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-\section{Concept statistique}
-\subsection{Modèle de base}
-
+\section{Le modèle à un locus}
+% Slide 1 : décomposition phénotypique
 \begin{frame}
- \frametitle{Rappel}
- 
- %\begin{itemize}
- % ADN
- % Genes
- % Alleles
- % Effet allélique
- % Locus
- % Dominance
- % Recessivité
- % Epistasie
- % Génome
- % Background génétique
- %\end{itemize}
-\end{frame}
+  \frametitle{Décomposition de la valeur génétique (G)}
 
-\begin{frame}
-  \frametitle{Décomposition de la variation phénotypique (1/2)}
-  Pour un génotype dans un environnement donné on a :
+  \textbf{Population :} panmictique, taille infinie, reproduction sexuée.\\[0.15cm]
+  \textbf{Un seul locus} $A$ influence la valeur génétique.\\
+  Génotypes : $A_iA_j$ avec $A_iA_j = A_jA_i$.
+
+  \vspace{0.3cm}
   \begin{itemize}
-    \item<2-> P : Phénotype
-    \item<3-> $\mu$ : moyenne de la population
-    \item<4-> G : Valeur génétique
-    \item<5-> E : Environnement (macro $\neq$ micro, spécifique)
+    \item<2-> $P$ : Phénotype
+    \item<3-> $\mu$ : Moyenne de la population
+    \item<4-> $G$ : Valeur génétique
+    \item<5-> $E$ : Effet de l'environnement
   \end{itemize}
 
   \only<6->{
-    \begin{align*}
-      P &= \mu + G + E
-    \end{align*}
-  }
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Décomposition de la variation phénotypique (2/2)}
-  
-  Pour un génotype dans un environnement donné on a :
-  \only<1->{
     \[
-      G = [g_1 + g_i + g_n]
-    \]
-  }
-  
-  \only<2->{
-    \begin{itemize}
-      \item<2-> P : Phénotype
-      \item<2-> $\mu$ : moyenne de la population
-      \item<2-> G = $[g_1 + g_i + g_n]$ : Valeur génétique
-      \item<2-> E : Environnement (macro $\neq$ micro, spécifique)
-    \end{itemize}
-  }
-  
-  \only<3->{
-    \[
-      P = \mu + [g_1 + g_i + g_n] + E
+      P = \mu + G + E
     \]
   }
 
 \end{frame}
 
-
+% Slide 2 : modèle génétique de Fisher
 \begin{frame}
-  \frametitle{Hértitabilité}
-  
-   \only<1-2>{
-   
-     La variance de la distribution phénotypique se calcule comme la variance de la somme de
-  deux variables aléatoires.
-    \[
-      V(P) = V(G) + V(E) + 2cov(G, E)\quad \text{Eq.~(1)}
-    \]
-    
-    où $cov(G,E)$ est la covariance entre les effets génotypiques et environnementaux.
-    
-    \begin{itemize}
-    \item<2-> En espérance $cov(G,E) = 0$ si les valeurs des génotypes sont élaborées 
-    de manière indépendantes des valeurs environnementales (randomisation des expériences)
-    \end{itemize}
-  }
-  
-  \only<3>{
-  L’équation 1 devient :
+  \frametitle{Décomposition de la valeur génétique (G)}
+
+  Valeur génétique d'un génotype $A_iA_j$ :
   \[
-  V(P) = V(G) + V(E)\quad \text{Eq.~(2)}
-   \]
-  }
-  
-  
- \only<4->{
-  Héritabilité au sens large, $H^2_{SL}$:
-  
+    G_{ij} = \alpha_i + \alpha_j + B_{ij}
+  \]
+
 \[
-H^2_{SL} = \frac{V(G)}{V(P)} = \frac{V(G)}{V(G) + V(P)} 
+\begin{array}{r l c}
+  G = & \text{effet moyen du gène paternel} & + \\
+      & \text{effet moyen du gène maternel} & + \\
+      & \text{effet d'interaction entre (dominance)} & 
+\end{array}
 \]
 
-
-\begin{itemize}
-\setlength{\itemsep}{0.6em}
-  \item<5->quantifier Quantifier la part de la variation d’origine génétique dans la variation phénotypique totale.
-  \item<6-> L’héritabilité \(H^2 \in [0,1]\) : \(H^2 \uparrow \Rightarrow\) plus la variation phénotypique est due aux gènes.
-
-\end{itemize} }
+  \vspace{0.3cm}
+  où :
+  \begin{itemize}
+    \item<2-> $\alpha_i$ : effetadditif de l’allèle $A_i$
+    \item<3-> $\alpha_j$ : effet additif de l’allèle $A_j$
+    \item<4-> $B_{ij}$ : déviation due à la dominance (interaction $A_iA_j$)
+  \end{itemize}
 
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{Interactions entre le génotype et l’environnement}
+\frametitle{Effet moyen associé à un allèle (\(\alpha_i\))}
 
-  \centering
-  \only<1>{
-    \includegraphics[width=0.9\textwidth,keepaspectratio]{figures/GE_1.png}
-    \vspace{0.5em}\par\footnotesize Priyadarshan, P.M. (2019)
-  }
-  \only<2>{
-    \includegraphics[width=0.9\textwidth,keepaspectratio]{figures/GE_2.png}
-    \vspace{0.5em}\par\footnotesize Priyadarshan, P.M. (2019)
-  }
-  \only<3>{
-    \includegraphics[width=0.9\textwidth,keepaspectratio]{figures/GE_3.png}
-    \vspace{0.5em}\par\footnotesize Priyadarshan, P.M. (2019)
-  }
+L'effet moyen de l'allèle \(A_i\) (average effect, Fisher) est défini comme :
 
+\[
+\alpha_i = E_j(G_{ij}) = \sum_j p_j G_{ij}
+\]
 
-  \only<4->{
-    \vspace{1em}
-    L’équation 1 devient :
-    \[
-      P = G + E + G\times E \quad \text{(Eq.~3)}
-    \]
-
-    \begin{itemize}
-      \setlength{\itemsep}{0.6em}
-      \item<5-> Stabilité des génotypes (adaptation générale vs adaptation spécifique)
-      \item<6-> Prise en compte de $V(G\times E)$ dans les stratégies de sélection
-    \end{itemize}
-  }
-
+\begin{itemize}
+  \item \(p_j\) : fréquence de l'allèle \(A_j\)
+  \item Panmixie : \(j\) est tiré indépendamment de \(i\)
+  \item \(\alpha_i\) a par construction une \textbf{moyenne nulle} dans la population
+\end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Effet de dominance (\(\beta_{ij}\))}
+
+L'effet de dominance est défini comme l'interaction entre les deux allèles :
+
+\[
+\beta_{ij} = G_{ij} - \alpha_i - \alpha_j
+\]
+
+\begin{itemize}
+  \item Moyenne nulle : \(E_j(\beta_{ij}) = 0\)
+  \item Par construction, \(\alpha_i\) et \(\beta_{ij}\) sont \textbf{indépendants}
+  \item Covariances nulles entre effets tirés indépendamment :
+  \[
+  \text{cov}(\alpha_i, \beta_{ij}) = 0, \quad 
+  \text{cov}(\beta_{ij}, \beta_{ik}) = 0
+  \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Indépendance des effets alléliques}
+
+Sous panmixie, les deux allèles \(i\) et \(j\) d'un individu sont tirés indépendamment :
+
+\[
+\text{cov}(\alpha_i, \alpha_j) = 0
+\]
+
+De même : 
+\[
+E(\alpha_j) = E(\beta_{ij}) = 0
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Variance génétique}
+
+La variance génétique d'un génotype est :
+
+\[
+V_G = V(G_{ij}) = V(\alpha_i) + V(\alpha_j) + V(\beta_{ij}) \quad (\text{covariances nulles})
+\]
+
+\[
+V_G = 2 V(\alpha) + V(\beta)
+\]
+
+On définit :
+\[
+\begin{aligned}
+V_A &= 2 V(\alpha) = 2 E(\alpha_i^2) \quad \text{(variance additive)}\\
+V_D &= V(\beta) = E(\beta_{ij}^2) \quad \text{(variance de dominance)}
+\end{aligned}
+\]
+
+Donc :
+\[
+V_G = V_A + V_D
+\]
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Héritabilité au sens strict}
+
+L'héritabilité au sens strict (\(h^2_{ss}\)) est la proportion de la variance phénotypique due à la \textbf{variance génétique additive} :
+
+\[
+h^2_{ss} = \frac{V_A}{V_P}
+\]
+
+où \(V_P\) est la variance phénotypique totale.
+\end{frame}
+
+
 
 
 
@@ -469,40 +336,14 @@ H^2_{SL} = \frac{V(G)}{V(P)} = \frac{V(G)}{V(G) + V(P)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% --section --%
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Application à l'amélioration des plantes}
+\section{Généralisation du modèle}
 
-\begin{frame}
-  \frametitle{Application à l'amélioration des plantes}
 
-  Objectifs :
-  \begin{itemize}
-    \setlength{\itemsep}{0.6em}
-    \item<1-> Choisir les génotypes à garder
-    \item<2-> Choisir les génotypes pour la prochaine génération (croisement)
-    \item<3-> Répéter les deux étapes précédentes \(\Rightarrow\) "amélioration de la population"
-  \end{itemize}
 
-  \vspace{0.5em} % petit espace avant la partie suivante
-
-  But :
-  \begin{itemize}
-    \setlength{\itemsep}{0.6em}
-    \item<4-> Obtenir un gain génétique \(\Rightarrow\) "progrès génétique"
-    \item<5-> Efficacement
-    \item<6-> À court terme mais aussi à long terme
-  \end{itemize}
-
-  \vspace{0.5em}
-
-  Points clés :
-  \begin{itemize}
-    \setlength{\itemsep}{0.6em}
-    \item<7-> Évaluer les génotypes pour leur descendance attendue
-    \item<8-> Maintenir la diversité génétique
-  \end{itemize}
-
-\end{frame}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% --section --%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Conséquences pour la pratique de l’amélioration génétique}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -511,12 +352,13 @@ H^2_{SL} = \frac{V(G)}{V(P)} = \frac{V(G)}{V(G) + V(P)}
 \section{Activité - 45 min}
 \begin{frame}
  \frametitle{Activité}
-%% Donner 3 articles, chaque etudiant choisit un article à son choix
+ 
 \begin{itemize}
 \setbeamertemplate{itemize item}[square]
 \setlength{\itemsep}{0.6em}
 \item Code R
 \end{itemize}
+
 \end{frame}
 
 % After your last numbered slide

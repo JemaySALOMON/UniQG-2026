@@ -1,0 +1,601 @@
+---
+title: "Etude du cas biallèle"
+author: "Institut Agro Montpellier(J.David)"
+date: '`r as.character(format(Sys.Date(), format="%d/%m/%Y"))`'
+output:
+  rmdformats::readthedown:
+    highlight: kate
+  html_document:
+    toc: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 3
+  word_document: default
+---
+
+```{r, echo=FALSE}
+layout(matrix(c(1), 1,1))
+
+```
+
+# Le cas du modèle biallélique (dit de Fisher)
+
+## Introduction du modèle
+Cette partie est essentiellement à visée pédagogique. Elle traite d’un cas à un locus et à deux allèles. Elle permet de comprendre le comportement des variances et des effets additifs dans un cas simple où on suppose connues les valeurs 'biologiques' des génotypes à un locus. 
+
+Dans la mesure où la cartographie, la génétique d’association et la prédiction de la valeur génomique sont basées sur une modélisation assez proche, le modèle biallélique peut permettre également de concevoir les effets d’une prédiction de la valeur génotypique à partir d’une décomposition mendélienne à des locus connus (marqueurs).
+
+Exemples de populations bialléliques : 
+- croisement de deux plantes homozygotes, 
+- population créée à partir de l’autofécondation d'une plante tirée d'une population.
+- différentes populations dans lesquelles le polymoprhisme est biallélique comme le sont souvent les SNPs.
+
+Dans les deux premiers cas,  les deux allèles sont attendus en fréquence égale mais il peut exister d'autres populations pour lesquelles ce n'est pas le cas. 
+
+Considérons ici que la population est panmictique. A un locus, deux allèles B et b aux fréquences $p$ et $q$, avec $q=1-p$.
+
+Trois génotypes sont possibles :
+BB  : en fréquence $p^2$
+Bb  : en fréquence 2pq
+bb  : en fréquence $q^2$.
+
+Les valeurs biologiques moyennes des génotypes à ce locus sont arbitraires  mais fixes dans le temps ($G_{bb}, G_{Bb} et G_{BB}$) , représentées en fig 1.
+
+```{r}
+# placer ici les valeurs à simuler
+Gbb=1
+GBb=1.7
+GBB=2
+```
+
+La représentation graphique est la suivante.
+
+```{r, echo=FALSE}
+
+plot(c(Gbb,GBb,GBB), xaxt="n", xlab="Genotypes", ylab="Performance", yaxt="n", col="blue", pch=20, cex=2)
+axis(1, at=1:3, labels=c("bb","Bb", "BB"))
+axis(2, at=c(Gbb,GBb, GBB), labels=c("Gbb","GBb", "GBB"), las=2, tck=0)
+axis(4, at=c(Gbb,GBb, GBB), labels=c(Gbb,GBb, GBB), las=2)
+
+title(main="Figure 1. Description des valeurs génotypiques", sub="Valeurs dans le modèle biologique")
+
+```
+
+A partir de ces valeurs phénotypiques quelconques, nous allons faire un changement de repère.
+
+Nous noterons $c$ (comme centre) la valeur intermédiaire entre $G_{bb}$ et $G_{Bb}$
+$$c = \frac{G_{bb}+G_{BB}}{2}$$.
+
+Attention $c$ n'est pas la moyenne de la population ! C'est le milieu du segment entre les deux homozygotes.
+
+Nous noterons $a$ la demi-différence entre $G_{bb}$ et $G_{Bb}$, 
+$$a= \frac{G_{BB}-G_{bb}}{2}$$
+et $d$ l'écart entre la valeur de l'hétérozygote  $G_{Bb}$ et $c$, soit
+$$ d = G_{Bb}-c$$.
+
+Tout ceci revient à un changement de variables tel que
+$$G_{bb}	= c-a$$
+$$G_{Bb} 	= c+d$$
+$$G_{BB} 	= c+a$$
+
+Cette ré-écriture simplifie ultérieurement les calculs et n'impose aucune contrainte.
+
+```{r}
+# Calcul des valeurs du modèle biallélique
+c <- (GBB+Gbb) / 2
+a <- GBB - c
+d <- GBb - c
+
+```
+
+
+```{r, echo=FALSE}
+
+plot(c(Gbb,GBb,GBB), xaxt="n", xlab="Genotypes", ylab="Performance", yaxt="n", col="blue", pch=20, cex=2)
+
+axis(1, at=1:3, labels=c("bb","Bb", "BB"))
+axis(2, at=c(Gbb,GBb, GBB), labels=c("Gbb","GBb", "GBB"), las=2, tck=0)
+axis(4, at=c(Gbb,GBb, GBB), labels=c(Gbb,GBb, GBB), las=2)
+
+
+abline(a=c, b=0, col="red")
+axis(2, at=c(c), labels=c("c"), las=2)
+arrows(3, c, 3, c+a)
+arrows(1, c, 1, c-a)
+arrows(2,c,2,c+d)
+text(1.1,c-a/2,labels="-a")
+text(2.1,c+d/2,labels="+d")
+text(2.9,c+a/2,labels="+a")
+
+title(main="Figure 2. Description des valeurs génotypiques", sub="avec le changement de repère")
+
+```
+
+## Interpétation des paramètres
+
+Le paramètre $d$ est un paramètre lié à dominance de l'allèle $B$ sur l'allèle $b$. Le degré de dominance peut être défini par $\frac{d}{a}$.
+
+Si
+$\frac{d}{a}  = 1$ , il y a dominance complète, le fait de posséder au moins une copie de l'allèle B donne la valeur maximale.  
+Si $0< \frac{d}{a}<1$, il y a	dominance partielle, soit favorable soit défavorable.   
+et  $\frac{d}{a}a>1$, il y a superdominance, l'hétérozygote est meilleur que les deux homozygotes.
+
+
+## Passage au modèle de décomposition des effets génétiques
+Relions maintenant les génotypes moyens Y à la valeur génétique telle qu'elle s'écrit dans le modèle génétique:
+
+$$G_{bb}	= c-a = \mu + 2\alpha_{b} + \beta_{bb}$$
+$$G_{Bb}	= c+d = \mu + \alpha_{b} + \alpha_{B} + \beta_{bB}$$
+$$G_{BB}	= c+a = \mu + 2\alpha_{B} + \beta_{BB}$$
+
+
+### La moyenne
+Si la population se reproduit en panmixie, la moyenne de la population $\mu$  vaut :
+
+$$\mu= p^2 G_{BB} + 2pq G_{Bb} + q^2 G_{bb}	= p^2 \left(c+a\right) +  2pq  \left(c+d\right) +q^2 \left(c-a\right)$$
+
+$$\mu= c + a\left(p+q\right)\left(p-q\right) + 2 pqd = c + a\left(p-q\right) + 2 pqd$$
+
+
+Regardons comment évolue la moyenne de la population en fonction de la fréquence de l'allèle $B$, $p$.
+
+```{r}
+mu<-NULL
+# ici on indique un vecteur de fréquence pour lesquelles on veut calculer la moyenne
+freq<-c(0:100)/100
+        
+# on ecrit une fonction qui donne la moyenne
+mu <-function (c, a , d, p) {
+                   mu<- c+ a*(p-1+p) + 2*p*(1-p)*d
+                   return(mu) }
+
+moyenne <- mu(c, a, d, freq)
+
+```
+
+```{r, echo=FALSE}
+
+plot(freq,moyenne,col="blue", xlab="Fréquence de B")
+title(main="Evolution de la moyenne \nen fonction de la fréquence de l'allèle favorable", sub=paste("a",a,", d",d, sep=":"))
+abline(a=c, b=0, col="red")
+axis(4, at=c(c), labels=c("c"), las=2)
+
+```
+
+Vous pouvez constatez qu'en raison de l'existence d'un effet de dominance non nul, la courbe de la moyenne ne traverse pas la ligne horizontale d'ordonnée $c$ pour $p=1/2$.
+
+
+### Les effets additifs
+Nous avons défini de manière générale l'effet additif d'un allèle comme l'écart entre l'espérance génotypique des individus qui portent au moins une copie de cet allèle et la moyenne de la population.
+
+$$\alpha_i=E_{j}\left(G_{ij}\right)-\mu=\sum_{j}p_{j}G_{ij}-\mu$$
+
+Ainsi, dans le cas d'une population bi-allélique, l'effet additif de l'allèle $B$ se calcule de la manière suivante : 
+
+$\alpha_B=\left(pG_{BB}+ qG_{Bb} - \mu\right)$ puisque $p$ est la fréquence de $B$ et $q$ celle de $b$.
+
+De même, $\alpha_b=pG_{Bb}+ qG_{bb} - \mu$
+
+Le calcul donne
+A REVOIR
+
+$$\alpha_B= p \left(c+a\right) + q \left(c+d\right)- \left( c + \left(p-q\right)a +2pq d \right)$$
+$$\alpha_B= a \left(q-p+p\right) + \left(q-2p\right)d = q\left(a + \left(q-p\right)d\right)$$
+
+
+
+Si on appelle $\alpha= a + \left(q-p\right)d$ alors $\alpha_B= q \alpha$ et par la même démarche on montre que $\alpha_b= -p \alpha$.
+
+
+Nous remontrons ici que l'effet moyen d'un allèle est une fonction des fréquences alléliques : à effet biologique constant, le même allèle n'aura pas le même "effet moyen" dans le modèle génétique selon la population dans laquelle il se trouve.
+
+### Les effets de dominance 
+
+Pour obtenir ces valeurs $\beta_{ij}$, il suffit de retrancher $\mu + \alpha_i + \alpha_j$ à la valeur de $G_{ij}$.
+
+Par exemple, $\beta_{BB} = G_{ij}-2 \alpha_B-\mu$.
+
+Et le calcul donne
+$\beta_{bb}= -2p^2 d$
+$\beta_{Bb}=  2pq d$
+$\beta_{bb}= -2q^2 d$
+
+Vous pouvez remarquer que ces valeurs seront la plupart du temps assez faibles puisque elles sont affectées d'un produit $p^2$ ou $pq$.
+
+
+### Interprétation en termes de régression géno-phénotypique
+
+On peut en première approximation caractériser dans le système précédent un individu par sa dose d'allèles favorables $B$ : zéro (individu bb), un (individu Bb) ou deux (individu BB). Une première approximation de la relation entre phénotype et génotype est de ne considérer que les effets alléliques additifs : on prédirait alors un phénotype centré égal à $2\alpha_b$,  $\alpha_b + \alpha_B$ ou $2\alpha_B$ respectivement pour ces trois cas : la relation entre la dose d'allèle B et la prédiction faite serait linéaire.
+
+On peut donc représenter cette prédiction comme une régression linéaire (figure 2) du phénotype sur la dose de B. Les valeurs prédites sur la droite de régression pour chacun des génotypes sont les valeurs dites "additives" (ou "breeding values") , qui sont en couleur sur la figure, et respectent toujours la contrainte que l'hétérozygote a une valeur exactement intermédiaire entre les deux homozygotes. 
+Cette prédiction n'est pas parfaite, car l'hétérozygote n'est pas dans la nature systématiquement intermédiaire entre les homozygotes. Le décalage entre la prédiction additive (points colorés de la figure) et la réalité (points blancs) est quantifié par les valeurs de $\beta$, dites "déviations de dominance".
+
+Etudions la relation par simulation de données (sans erreur d'échantillonnage)
+
+```{r}
+# Donner une  valeur de frequence pour p
+p=0.2
+q=1-p
+
+# valeur de la moyenne
+µ<-p**2*(c+a) + 2*p*q*(c+d) + q**2*(c-a)
+
+# Valeur de alpha
+alpha<-a+(q-p)*d
+
+# les effets additifs des deux allèles
+alpha_B<-   q * alpha
+alpha_b <- -p * alpha
+
+# les trois interactions
+beta_bb = -2* d * p**2
+beta_Bb =   2*p*q* d 
+beta_BB = -2*d* q**2
+
+# Valeurs prédites avec le modèle additif dans le modèle bi allélique
+PredBB <- µ + 2 * alpha_B
+PredBb <- µ + alpha_B + alpha_b  
+Predbb <- µ + 2* alpha_b  
+
+# Nombre d'alleles B
+x<-c(0,1,2)
+
+# Valeurs biologiques associées
+y<-c(c-a,c+d,c+a)
+
+# valeurs predites
+ypred<-c(Predbb,PredBb,PredBB)
+
+# frequence de chacuns de genotypes en panmixie (bb, Bb et BB)
+freq<-c(q**2,2*p*q,p**2)
+
+```
+
+Sur un graphe
+```{r}
+# Graphe des  valeurs predites et la taille du point dépend des frequences
+par(mar=c(3,3,3,5), oma=c(0,0,0,0))
+plot(ypred~x, main="valeurs phénotypiques \nen fonction du nombre d'alleles B"
+     , col="red", cex=10*freq, xlab="nombre d'alleles favorables",
+     xaxt="n", yaxt="n")
+axis(1, at=c(0,1,2), labels=c("0", "1", "2"))
+text(0.3, Predbb, expression(q^2))
+text(1.2, PredBb, expression(2*p*q))
+text(1.9, PredBB, expression(p^2))
+
+# les vraies valeurs
+points(y~x, pch=20, cex=2)
+
+axis(2, at=c(c-a,c,c+d,c+a), labels=c("-a","0","d","+a"), las=2)
+
+# la pente de la régression
+abline(a=Predbb,b=alpha)
+
+
+# les breeding values
+albb<-expression(-2*p*alpha)
+albB<-expression((p-q)*alpha)
+alBB<-expression(2*q*alpha)
+
+axis(4, at=c(Predbb, PredBb, PredBB), 
+      labels=c(albb,albB,alBB), las=2)
+
+
+
+title(sub="Figure 2. L'approche par la régression")
+
+```
+
+En noir,les valeurs génotypiques et en rouge les valeurs (additives) prédites par la régression sur le nombre de copie de l’allèle $B$.
+
+Notez que la régression de pente $\alpha$ dépend des fréquences des trois génotypes et la droite de régression passe au voisinage des génotypes les plus fréquents. Ici Bb et bb dans notre exemple avec p=0.2 au détriment des génotypes les moins fréquents (ici les BB).
+
+Utilisez ce script avec différentes valeurs de fréquences $p$, et de paramètres d'additivité et de dominance, $a$ et $d$ pour retracer ce type de figure et vous familiariser avec la notion de valeur additive.
+
+La pente de la régression des valeurs additives sur le nombre d’allèles $B$ est $\alpha$ et on peut démontrer que $\alpha=\alpha_B-\alpha_b$.
+
+Ainsi on appelle souvent $\alpha$ l'effet de subsitution de b par B. Cette démarche est utilisée couramment pour la détection de marqueurs en déséquilibre de liaison avec des locus à effets quantitatifs (QTLs).
+
+### Evolution des variances
+
+La variance additive
+$$\sigma^2_A = 2E\left({\alpha_i}^2\right)
+= 2 \left(\sum_{i=1}^n p_i\alpha_i^2\right)  
+= 2 \left(p_B\alpha_B^2 + p_b\alpha_b2\right)  
+= 2 \left(pq^2\alpha^2+ qp^2\alpha^2 \right)  
+= 2pq\alpha^2$$
+
+
+De même pour la variance de dominance, on trouve 
+$$\sigma^2_D = 4p^2q^2d^2$$
+
+
+L'évolution de $\sigma^2_A$ et de $\sigma^2_D$ est intéressante à suivre en fonction de $p$, $a$ et $d$.
+
+```{r, echo=FALSE}
+
+# fonctions de calcul de alpha, des variances additives et de dominance
+
+alpha_f<- function(a,d,p)
+{ q<-1-p
+  alpha<-a+(q-p)*d
+  return(alpha)}
+
+
+var_A_f<- function(a,d,p)
+{ v<-2*p*(1-p)*(a+(1-p-p)*d)**2
+    return(v)}
+
+var_D_f<- function(a,d,p)
+{ v<-4*p**2*(1-p)**2*d**2
+    return(v)}
+
+
+```
+
+
+Ci-dessous quelques exemples de changement des différentes composantes de la variance en fonction des fréquences alléliques
+
+ 
+La variance additive est en bleu, la variance de dominance est en rouge.
+
+```{r, echo=FALSE}
+a<-1
+d<-0
+
+# vecteur de frequence
+freq<-c(0:100)/100
+
+alpha<-alpha_f(a,d,freq)
+var_A<-var_A_f(a,d,freq)
+var_D<-var_D_f(a,d,freq)
+
+plot(alpha~freq, cex=0.3)
+
+plot(var_A~freq, cex=0.3, col="blue", main=paste("Evolution des variances\n", "a=",a,"d=",d,sep=""))
+points(var_D~freq, cex=0.3 , col="red")
+
+```
+
+Avec de la dominance, 
+```{r, echo=FALSE}
+a<-1
+d<-1
+
+# vecteur de frequence
+freq<-c(0:100)/100
+
+alpha<-alpha_f(a,d,freq)
+var_A<-var_A_f(a,d,freq)
+var_D<-var_D_f(a,d,freq)
+
+plot(alpha~freq, cex=0.3)
+
+plot(var_A~freq, cex=0.3, col="blue", main=paste("Evolution des variances\n", "a=",a,"d=",d,sep=""))
+points(var_D~freq, cex=0.3 , col="red")
+
+```
+
+
+Avec de la super dominance, 
+```{r, echo=FALSE}
+a<-0
+d<-1
+
+# vecteur de frequence
+freq<-c(0:100)/100
+
+alpha<-alpha_f(a,d,freq)
+var_A<-var_A_f(a,d,freq)
+var_D<-var_D_f(a,d,freq)
+
+plot(alpha~freq, cex=0.3)
+
+plot(var_D~freq, cex=0.3, col="red", main=paste("Evolution des variances\n", "a=",a,"d=",d,sep=""))
+points(var_A~freq, cex=0.3 , col="blue")
+
+```
+
+
+La variance dépend des fréquences. En fonction des paramètres de dominance et d’additivité, son maximum ne se situera pas au même endroit de l’espace des fréquences et la variance additive dépend pour partie des effets de dominance.
+
+Ce phénomène est lié à l’apparition des hétérozygotes $Bb$ dans la population par rapport aux génotypes $BB$, pour les faibles valeurs de $p$, un allèle $B$ sera beaucoup plus souvent associé à un allèle $b$ qu’à un allèle $B$. Le calcul de la valeur additive de $B$ est donc d’autant plus grande qu’il y a un fort excès d’allèles $b$ par rapport à $B$. 
+
+Lorsque $p=q$, la valeur additive de $B$ ne dépend plus de la dominance biologique. Lorsque $B$ devient majoritaire, il créée moins de variance dans la population puisque l’hétérozygote a la même valeur que l’homozygote BB.
+
+Le cas de superdominance donne des situations particulières : la variance est nulle lorsque les deux allèles sont en fréquences égales (pour a=0), l’état d’équilibre de la population est atteint.
+
+Attention donc au langage utilisé qui peut être source de confusion. La relation entre modèle biologique et statistique n'est pas simple. 
+
+### Cas des populations utilisées pour la détection de QTL
+Cas des populations F2 (p=q=1/2)
+
+
+On a alors $\alpha= a +(p-q) d = a$ et $\alpha_B=\frac{a}{2}$ et $\alpha_b=-\frac{a}{2}$. 
+Entre les individus $BB$ et $bb$, il y a a bien une différence de $2a$.
+
+
+La variance est de $\sigma_A^2=\frac{1}{2}a^2$ quelle que soit la valeur de d.
+
+La valeur en sélection des allèles dépend de leur fréquence allélique. 
+La probabilité qu’ils soient repérés dans un programme de génétique d’association dépend aussi de la variation phénotypiques qu’ils crééent dans la population (la valeur de a).
+
+Dans un programme de sélection génomique, il sera plus facile d’utiliser dans un premier temps les locus qui ont la plus grande variance allélique puisque la différence de valeurs additive à l’intérieur de la population dans lesquels on les détecte est la plus grande.  
+
+### Application
+Nous reprenons le simulateur de données que nous avons déjà vu dans le premier cours.  
+
+Exécuter ce script va produire une matrice de données génotypiques, une matrice de valeurs génotypiques, une de valeurs phénotypiques.
+
+Nous pourrons donc explorer les régressions entre les génotypes et leurs valeurs en regardant le lien entre la performance et le nombre d'allèles favorables.
+
+Créons d'abord notre population.
+
+```{r}
+# fonction qui donne la valeur de theta = 4Neµ
+xi <- function(n,theta ){
+i<-c(1:(2*n-1))
+pi<-theta/i
+return(pi)
+}
+
+# nombre d individus pour la découverte des fréquences alléliques (Ewens)
+n<-50
+
+# proportions des frequences alleliques
+freq<-xi(n,0.10)
+
+# tirage des frequences alleliques
+L<-100
+Locus<-NULL
+for(i in 1:L) {
+        tirage<-rmultinom(1, size = 1, prob = freq)
+        classe <- which(tirage>0)
+        Locus[i]<-classe/2/n  
+        } 
+
+## Construction de la matrice des genotypes 
+# nombre d'individus
+n_ind<-1000
+genotype <-matrix(nrow=n_ind, ,ncol=L)
+
+for(i in 1:L) {
+        pA<-Locus[i]
+        pa<-1-pA
+        tirage<-rmultinom(n_ind, size = 1, prob = c(2*pA*pa, pA*pA,  pa*pa))
+        genotype[,i]<-((which(tirage>0))%%3-1)*2
+} 
+
+# ici a vaut 2
+ValeursG<-apply(genotype, 1, sum)
+ValeursE<-rnorm(n_ind, mean=0, sd=15)
+
+# valeur de la moyenne, tous les autres effets etant centrés
+centrage<-1000
+ValeursG<-centrage + ValeursG
+ValeursP<-ValeursG + ValeursE
+
+hist(ValeursP, main="Distribution des valeurs phénotypiques")
+
+## Valeurs génétiques 
+### Que se passe t il à un locus ?
+
+Nb_Alleles_favorables<-genotype
+Nb_Alleles_favorables[Nb_Alleles_favorables==2]<-2
+Nb_Alleles_favorables[Nb_Alleles_favorables==0]<-1
+Nb_Alleles_favorables[Nb_Alleles_favorables==-2]<-0
+
+# il faut transformer les données en numériques pour la régression
+Nb_Alleles_favorables<-apply(Nb_Alleles_favorables,2,function(x) { x<-as.numeric(x)})
+
+```
+
+Nous pouvons vérifier que la simulation a bien fonctionné. Regardons le lien entre les fréquences théoriques et celles qui ont été réalisées dans la simulation.
+
+```{r}
+# Les fréquences réalisées
+Freq_realisees<-apply(Nb_Alleles_favorables,2,sum)/n_ind/2
+
+# elles sont proches des valeurs simulées
+plot(Freq_realisees,Locus)
+```
+
+Pour étudier la relation entre les génotypes et les valeurs génotypiques, nous pouvons regarder ce qui se passe à un locus.
+
+```{r}
+# choisissez le locus
+i<-4
+
+# les effectifs génotypiques
+table(Nb_Alleles_favorables[,i])
+
+# quelle est la fréquence de A à ce locus
+Freq_realisees[i]
+
+# Representation graphique
+boxplot(ValeursG ~Nb_Alleles_favorables[,i])
+
+# les moyennes par génotypes
+moyenne_Geno<-aggregate(ValeursG, list(Geno=Nb_Alleles_favorables[,i]), mean)
+moyenne_Geno
+
+# les paramètres de la regression, une fonction
+regression_f<-function(Valeurs,Nb_Alleles) {
+             modele<-lm(Valeurs~Nb_Alleles)
+             intercept<-modele$coefficients[1]
+             beta<-modele$coefficients[2]
+            return(list(intercept, beta))
+            }
+
+R<-regression_f(ValeursG,Nb_Alleles_favorables[,i])
+
+intercept<-R[[1]]
+beta<-R[[2]]
+
+abline(a=intercept, b=beta, col="red")
+
+# la pente attendue alpha = a +(p-q)d
+alpha<-2+(2*Freq_realisees[i]-1)*0
+alpha
+
+# a comparer avec beta
+beta
+
+
+```
+
+Les breeding values
+
+L'effet additif de $B$ est donc $\alpha_B=q\alpha$ et la breeding value de $G_{BB}$ vaut $µ+2\alpha_B$.
+
+Les individus $BB$ ont donc comme breeding value (centrées)
+
+```{r}
+Breeding_BB=2*(1-Freq_realisees[i])*beta
+Breeding_BB
+Breeding_Bb=(1-Freq_realisees[i]-Freq_realisees[i])*beta
+Breeding_Bb
+Breeding_bb=-2*(Freq_realisees[i])*beta
+Breeding_bb
+
+```
+
+La variance additive
+```{r}
+VA<-2*Freq_realisees[i]*(1-Freq_realisees[i])*beta
+VA
+```
+
+Explorez plusieurs locus qui ont des fréquences très différentes entre [0,1] et regardez comment évoluent les breedings values et les variances.
+
+Au lieu d'utiliser la régression sur les valeurs génotypiques, faites là sur la valeur phénotypique.
+
+Il suffit de remplacer ValeursG par valeursP...
+
+```{r}
+# Representation graphique
+boxplot(ValeursP ~Nb_Alleles_favorables[,i])
+
+# les moyennes par génotypes
+moyenne_Geno<-aggregate(ValeursP, list(Geno=Nb_Alleles_favorables[,i]), mean)
+moyenne_Geno
+
+R<-regression_f(ValeursP,Nb_Alleles_favorables[,i])
+
+intercept<-R[[1]]
+beta<-R[[2]]
+
+abline(a=intercept, b=beta, col="red")
+
+# la pente attendue alpha = a +(p-q)d
+alpha<-2+(2*Freq_realisees[i]-1)*0
+alpha
+
+# a comparer avec beta
+beta
+
+```
+
+Discutez...
+

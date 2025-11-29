@@ -229,7 +229,7 @@
   \vspace{0.3cm}
   où :
   \begin{itemize}
-    \item<2-> $\alpha_i$ : effetadditif de l’allèle $A_i$
+    \item<2-> $\alpha_i$ : effet additif de l’allèle $A_i$
     \item<3-> $\alpha_j$ : effet additif de l’allèle $A_j$
     \item<4-> $B_{ij}$ : déviation due à la dominance (interaction $A_iA_j$)
   \end{itemize}
@@ -268,7 +268,6 @@ L'effet de dominance est défini comme l'interaction entre les deux allèles :
   \item Covariances nulles entre effets tirés indépendamment :
   \[
   \text{cov}(\alpha_i, \beta_{ij}) = 0, \quad 
-  \text{cov}(\beta_{ij}, \beta_{ik}) = 0
   \]
 \end{itemize}
 \end{frame}
@@ -501,19 +500,6 @@ Y_{bb} &= \mu + G_{bb} = \mu + 2\alpha_b + \beta_{bb}
     \begin{center}
       \includegraphics[width=0.75\textwidth,height=0.75\textheight,keepaspectratio=true]{figures/regression_gp.png}
     \end{center}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Composantes de la variance}
-
-\[
-\sigma^2_A = 2 E(\alpha_i^2) = 2(p \alpha_B^2 + q \alpha_b^2) = 2 p q \alpha^2
-\]
-
-\[
-\sigma^2_D = E(\beta_{ij}^2) = 4 p^2 q^2 d^2
-\]
 \end{frame}
 
 

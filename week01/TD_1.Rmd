@@ -170,11 +170,11 @@ str(dat)
 
 ## Paramètres
 
-mu : rendement moyen de la population
+mu (t/ha) : rendement moyen de la population en 
 
-var_G : variance génétique
+var_G (t/ha) : variance génétique
 
-var_E : variance erreur
+var_E (t/ha) : variance erreur
 
 h2 : héritabilité (ici j'ai utilisé la valeur de l'héritabilité génomique possible sur certains environnements)
 

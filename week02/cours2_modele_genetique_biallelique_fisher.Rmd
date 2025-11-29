@@ -119,7 +119,7 @@ Le paramètre $d$ est un paramètre lié à dominance de l'allèle $B$ sur l'all
 Si
 $\frac{d}{a}  = 1$ , il y a dominance complète, le fait de posséder au moins une copie de l'allèle B donne la valeur maximale.  
 Si $0< \frac{d}{a}<1$, il y a	dominance partielle, soit favorable soit défavorable.   
-et  $\frac{d}{a}a>1$, il y a superdominance, l'hétérozygote est meilleur que les deux homozygotes.
+et  $\frac{d}{a}>1$, il y a superdominance, l'hétérozygote est meilleur que les deux homozygotes.
 
 
 ## Passage au modèle de décomposition des effets génétiques

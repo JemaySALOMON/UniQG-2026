@@ -56,7 +56,7 @@ By the end of this course, students will be able to:
 |:-----------|:---------------------------------------------------------------|:---------------------------------------|:------|
 | 11/11/2025 | Introduction à la génétique quantitative                       | [Lecture I][lecture1]     |       |
 | 25/11/2025 | Le Modèle génétique et le cas biallélique                      | [Lecture II][lecture2]    |        | |
-| 02/12/2025 | Covariances entre apparentés                                   | —                                      | Intra |
+| 02/12/2025 | Covariances entre apparentés                                   | [Lecture III][lecture3]          | Intra |
 | 09/12/2025 | TD 1: Modèle linéaire mixte et Analyse de données              | —                                      |       |
 | 16/12/2025 | Réponse à la sélection et corrélation génétique                | —                                      |       |
 | 06/01/2026 | TD 2: Interactions G×E                                         | —                                      |       |
@@ -64,9 +64,9 @@ By the end of this course, students will be able to:
 
 
 <!-- LINK DEFINITIONS -->
-[lecture1]: https://inrae-fr.zoom.us/rec/share/EA2Qnruvs_EP3zUpnUVCbNrtXXk6D5AIE7YqRf3HY0Yn5pVGPGQ_VV3yqHbEVhfV.cV41p-sq9-Ed46om 
-
+[lecture1]:https://inrae-fr.zoom.us/rec/share/EA2Qnruvs_EP3zUpnUVCbNrtXXk6D5AIE7YqRf3HY0Yn5pVGPGQ_VV3yqHbEVhfV.cV41p-sq9-Ed46om 
 [lecture2]:https://inrae-fr.zoom.us/rec/share/NzEpJCtvmq5Xdp2FwAnGHCZ-n3l25KMhtVO_IOZCrp4w7cZ67ZzNLXzh1aeqmKi8.tMd-2e6SuM2lVk_k 
+[lecture3]:https://inrae-fr.zoom.us/rec/share/2tSz2bEM23TM2AYrY2keDT8744W2BKsRpAjyRQBebhO4rbt20heF1CnAXfFAzaET.8LltvtXXoj_GD86S 
 
 
 *Course duration:* **11 November 2025 – 13 January 2026**

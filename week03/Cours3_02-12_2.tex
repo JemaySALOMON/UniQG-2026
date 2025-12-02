@@ -1,0 +1,604 @@
+\documentclass[c]{beamer} % use [t] to top-justified body text by default
+% \documentclass[c,handout]{beamer}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks, linkcolor=black, urlcolor=gray}
+\usepackage{amsmath}
+\usepackage{bm} % to have mathematical symbols in bold
+\usepackage{multirow}
+\usepackage{tikz}
+% \usepackage[francais]{babel}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage{xcolor}
+
+% https://tex.stackexchange.com/a/82558
+\usepackage[absolute,overlay]{textpos}
+% \usepackage[texcoord,grid,gridunit=mm,gridcolor=red!10,subgridcolor=green!10]{eso-pic}
+
+\graphicspath{{./figures/}}
+
+% -----------------------------------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{alerted text}{fg=purple}
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeameroption{hide notes}
+% \setbeameroption{show notes}
+\setbeamertemplate{note page}[plain]
+
+\setbeamertemplate{frametitle}{
+  \vspace{0.2cm}
+  \makebox[\linewidth][c]{
+    \parbox{0.9\linewidth}{\centering
+      \bfseries\insertframetitle
+    }
+  }
+}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode
+  \hbox{
+    \hspace*{-0.06cm}
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+      \usebeamerfont{author in head/foot}\insertshortauthor \hspace*{1em} \insertshortinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.50\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}
+      \usebeamerfont{section in head/foot}\insertshorttitle
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.27\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+      \usebeamerfont{section in head/foot}\insertshortdate{}\hspace*{2em}
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}
+  }
+  \vskip0pt
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    \addtocounter{framenumber}{-1}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    \addtocounter{framenumber}{-1}
+    \tableofcontents[currentsubsection,hideothersubsections,sectionstyle=show/shaded,subsectionstyle=show/shaded]
+  \end{frame}
+}
+% -----------------------------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Beginning of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title[Génét. Quanti., UniQ ]{Cours 3 – Covariances entre apparentés}
+\author[J. Salomon]{Jemay Salomon}
+\institute[]{\small UMR GQE Le Moulon \\ Université Paris–Saclay, INRAE, CNRS, AgroParisTech}
+\date{Nov. 25, 2025}
+
+%% Title page
+\begin{frame}[plain,t]
+\noindent
+%\includegraphics[height=0.7cm]{figures/logo-gqe-le-moulon.png}\hfill
+%\includegraphics[height=0.8cm]{figures/logos_mobidiv.jpeg}
+
+\vfill
+\begin{center}
+  %PLANTCOM meeting, Dijon
+
+  \bigskip
+
+  \bigskip
+  
+  {\fontsize{14pt}{16pt}\selectfont\bfseries \inserttitle}\\[0.8cm] 
+  {\large\insertauthor}\\[0.4cm] 
+  {\normalsize\insertinstitute}
+\end{center}
+\vfill
+
+\noindent
+\includegraphics[width=2cm]{figures/logo_faculte_sciences.png}\hfill
+\includegraphics[width=0.8cm]{figures/logo-inrae-fond-blanc.png}\hfill
+\includegraphics[width=0.5cm]{figures/logo_CNRS_biologie.png}\hfill
+\includegraphics[width=1.5cm]{figures/logo_agroparistech.png}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% --Begin-Document --%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Hypothèses du modèle}
+\begin{frame}
+ \frametitle{Covariances entre apparentés : hypothèses et notations}
+
+\only<1>{
+\textbf{Population de référence}
+\begin{itemize}
+  \item Population très grande, panmictique, sans sélection ni migration.
+  \item Les allèles sont tirés au hasard selon leurs fréquences alléliques.
+\end{itemize}
+
+\textbf{Deux situations entre individus}
+\begin{itemize}
+  \item \textbf{Apparentés} : ils partagent un ancêtre récent $\Rightarrow$ possibilité d’allèles identiques par descendance.
+  \item \textbf{Non apparentés} : probabilité d’identité par descendance supposée nulle.
+\end{itemize}
+}
+
+\only<2>{
+
+\medskip
+Soient deux individus au même locus :
+\[
+G_1 = (i, j)\qquad G_2 = (i', j')
+\]
+
+On définit l'\textbf{identité par descendance} (IBD) :
+\[
+i \equiv i' \quad \Longleftrightarrow \quad \text{les deux allèles proviennent d'un même allèle ancestral.}
+\]
+
+Probabilité IBD: \textbf{coefficient de simple parenté (Malécot,1948)} :
+\[
+\varphi_A = P(i \equiv i')
+\]
+
+\textbf{Propriété clé :}
+\[
+E(\alpha_i \alpha_{i'}) =
+\begin{cases}
+E(\alpha_i^2)=V(\alpha), & \text{si } i \equiv i' ,\\[4pt]
+0, & \text{si } i \not\equiv i' .
+\end{cases}
+\]
+
+Donc, en moyenne,
+\[
+E(\alpha_i \alpha_{i'}) \;=\; \varphi_A\, V(\alpha).
+\]
+}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Modèle génétique à un locus (Fisher)}
+\only<1>{
+Pour un individu de génotype $(i,j)$ :
+\[
+Y_{ij} = \mu + \alpha_i + \alpha_j + \beta_{ij}
+\]
+
+De même pour un second individu $(i',j')$ :
+\[
+Y_{i'j'} = \mu + \alpha_{i'} + \alpha_{j'} + \beta_{i'j'}
+\]
+
+Où :
+\begin{itemize}
+\item $\mu$ : moyenne de la population
+\item $\alpha_i$ : effet additif de l’allèle $i$
+\item $\beta_{ij}$ : effet de dominance (interaction entre $i$ et $j$)
+\end{itemize}
+}
+
+\only<2>{
+\textbf{Par construction du modèle :}
+\[
+E(\alpha_i) = 0,\qquad E(\beta_{ij}) = 0
+\]
+\[
+\operatorname{Cov}(\alpha, \beta) = 0
+\]
+
+Et en panmixie (absence d’IBD) :
+\[
+\operatorname{Cov}(\beta_{ij}, \beta_{i'j'}) = 0
+\quad \text{si pas d’identité par descendance}
+\]
+
+Notre objectif : calculer
+\[
+\operatorname{Cov}(Y_{ij},\, Y_{i'j'})
+\]
+}
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Développement détaillé de $\operatorname{Cov}(Y_{ij}, Y_{i'j'})$}
+
+\only<1>{
+\[
+\operatorname{Cov}(Y_{ij}, Y_{i'j'})
+= \operatorname{Cov}(\alpha_i + \alpha_j + \beta_{ij},\; \alpha_{i'} + \alpha_{j'} + \beta_{i'j'})
+\]
+
+Développement complet :
+
+\[
+= E(\alpha_i \alpha_{i'})
++ E(\alpha_i \alpha_{j'})
++ E(\alpha_j \alpha_{i'})
++ E(\alpha_j \alpha_{j'})
++ E(\beta_{ij} \beta_{i'j'})
+\]
+\[
++ \operatorname{Cov}(\alpha_i,\beta_{i'j'})
++ \operatorname{Cov}(\alpha_j,\beta_{i'j'})
++ \operatorname{Cov}(\alpha_{i'},\beta_{ij})
++ \operatorname{Cov}(\alpha_{j'},\beta_{ij})
+\]
+
+Par hypothèse de panmixie :
+\[
+\operatorname{Cov}(\alpha,\beta)=0
+\]
+donc les 4 derniers termes sont nuls.
+
+Il reste donc :
+\[
+\operatorname{Cov}(Y_{ij}, Y_{i'j'})
+= E(\alpha_i \alpha_{i'})
++ E(\alpha_i \alpha_{j'})
++ E(\alpha_j \alpha_{i'})
++ E(\alpha_j \alpha_{j'})
++ E(\beta_{ij} \beta_{i'j'})
+\]
+
+}
+
+\only<2>{
+Si les individus sont apparentés :
+\[
+P(i \equiv i')
+= P(i \equiv j')
+= P(j \equiv i')
+= P(j \equiv j')
+= \varphi_A
+\]
+
+et ainsi :
+\[
+E(\alpha_i \alpha_{i'})
+= E(\alpha_i \alpha_{j'})
+= E(\alpha_j \alpha_{i'})
+= E(\alpha_j \alpha_{j'})
+= \varphi_A V(\alpha)
+\]
+
+Donc :
+\[
+\boxed{
+\operatorname{Cov}(Y_{ij}, Y_{i'j'})
+= 4 \varphi_A V(\alpha)
++ E(\beta_{ij} \beta_{i'j'})
+}
+\]
+}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Développement détaillé de $\operatorname{Cov}(Y_{ij}, Y_{i'j'})$}
+
+\only<1>{
+\textbf{Forme générale :}
+
+\[
+\boxed{
+\operatorname{Cov}(Y_{ij}, Y_{i'j'})
+= 4 \, \varphi_A \, \operatorname{Var}(\alpha)
++ \varphi_D \, \operatorname{Var}(\beta)
+}
+\]
+
+où :
+\begin{itemize}
+\item $\operatorname{Var}(\alpha)$ : variance additive par allèle
+\item $\operatorname{Var}(\beta)$ : variance de dominance
+\item $\varphi_A$ : coefficient de parenté (Malécot)
+\item $\varphi_D$ : probabilité d’identité par descendance des deux couples d’allèles
+\end{itemize}
+}
+
+\only<2>{
+\textbf{Lien avec la variance additive totale :}
+
+\[
+V_A = 2 \, \operatorname{Var}(\alpha)
+\]
+
+\[
+4 \, \varphi_A \, \operatorname{Var}(\alpha) = 2 \, \varphi_A \, V_A
+\]
+
+\textbf{Covariance :}
+
+\[
+\operatorname{Cov}(X, Y)
+= 2 \, \varphi_A \, V_A
++ \varphi_D \, V_D
+\]
+
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Exemple : Covariance Parent-Enfant}
+
+\only<1>{
+\textbf{Cas 1 : Parent hétérozygote, population panmictique}
+
+Parent : $X = A_i A_j$, $i \neq j$  
+Autre parent : $A_{i'}A_{j'}$ non apparentés
+
+Enfant : $Y$ peut être $A_iA_{i'}$, $A_iA_{j'}$, $A_jA_{i'}$, $A_jA_{j'}$  
+
+\[
+\begin{cases}
+\text{Si l’allèle transmis est } A_{i'} \text{ ou } A_{j'} : P(i \equiv i') = 0 \\
+\text{Si l’allèle transmis est } A_i \text{ ou } A_j : P(i \equiv i') = 1/2
+\end{cases}
+\]
+
+Au total : 
+\[
+\varphi_A = \frac{1}{2} \times \frac{1}{2} = \frac{1}{4}, \qquad \varphi_D = 0
+\]
+
+\[
+\operatorname{Cov}(X,Y) = 2 \, \varphi_A \, V_A = 2 \times \frac{1}{4} V_A = \frac{1}{2} V_A
+\]
+}
+
+\only<2>{
+\textbf{Cas 2 : Parent homozygote}
+
+Parent : $X = A_i A_i$  
+Autre parent : $A_j A_j$ (différent)  
+
+L’allèle transmis est forcément $i$, probabilité $1/2$ chez un diploïde  
+
+\[
+\varphi_A = \frac{1}{2}, \qquad \varphi_D = 0
+\]
+
+\[
+\operatorname{Cov}(X,Y) = 2 \, \varphi_A \, V_A = 2 \times \frac{1}{2} V_A = V_A
+\]
+}
+
+\only<3>{
+\textbf{Cas 3 : Autofécondation d’un parent hétérozygote}
+
+Parent : $X = A_i A_j$, $i \neq j$  
+
+Descendant issu d’autofécondation : $Y$  
+
+\[
+\varphi_A = \frac{1}{2}, \qquad \varphi_D = \frac{1}{2}
+\]
+
+\[
+\operatorname{Cov}(X,Y) = 2 \, \varphi_A \, V_A + \varphi_D \, V_D
+= V_A + \frac{1}{2} V_D
+\]
+}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Exemples de covariance entre apparentés}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Famille} & $\varphi_A$ & $\varphi_D$ & $\operatorname{Cov}$ \\
+\hline
+Plein-frères & 1/4 & 1/4 & 1/2 $V_A$ + 1/4 $V_D$ \\
+Demi-frères & 1/8 & 0 & 1/4 $V_A$ \\
+Frères jumeaux & 1/2 & 1/2 & $V_A + V_D$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% --section --%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Utilisation des covariances pour estimer VA, VD}
+
+\begin{frame}{Estimation de $V_A$ par régression parent-enfant}
+
+\only<1>{
+\textbf{Principe :} comparer le phénotype d’un enfant $Y$ avec celui de son parent $X$.
+
+\[
+Y_i = b \, X_i + \varepsilon_i
+\]
+
+où $\varepsilon_i \sim N(0, \sigma_\varepsilon^2)$ et indépendant de $X_i$.
+}
+
+\only<2>{
+\textbf{Lien avec la covariance :}
+
+\[
+b = \frac{\operatorname{Cov}(Y_i, X_i)}{V(X_i)}
+\]
+
+Or pour un parent et son enfant : 
+\[
+\operatorname{Cov}(Y_i, X_i) = \frac{1}{2} V_A
+\]
+
+Donc :
+\[
+V_A = 2 \, b \, V(X_i)
+\]
+}
+
+\only<3>{
+\textbf{Remarque :} plusieurs descendants par parent
+
+\begin{itemize}
+\item Si plusieurs descendants, utiliser la moyenne des enfants comme $Y_i$
+\item Si on utilise la moyenne des deux parents, la variance parentale devient $V(X_i)/2$
+\item Le coefficient de régression $b$ devient donc $V_A/V_P$ (et non $1/2 V_A/V_P$)
+\item Cela réduit l’erreur d’estimation de $b$
+\end{itemize}
+}
+
+\end{frame}
+
+
+\begin{frame}{Estimation de $V_A$ et $V_D$ par ANOVA : demi-frères}
+\only<1>{
+\textbf{Principe :} utiliser des familles homogènes et indépendantes
+
+\[
+Y_{ij} = \mu + f_i + \varepsilon_{ij}
+\]
+
+où : 
+\begin{itemize}
+\item $i$ = indice de la famille
+\item $j$ = individu dans la famille
+\item $f_i \sim N(0, \sigma_f^2)$ : effet inter-familles
+\item $\varepsilon_{ij} \sim N(0, \sigma_\varepsilon^2)$ : effet intra-famille
+\end{itemize}
+}
+
+\only<2>{
+\textbf{Covariance intra-famille :}
+
+Pour deux individus de la même famille :
+
+\[
+\operatorname{Cov}(Y_{ij}, Y_{ik}) = \operatorname{Cov}(f_i + \varepsilon_{ij}, f_i + \varepsilon_{ik}) = \sigma_f^2
+\]
+
+\textbf{Interprétation :} la variance inter-familles $\sigma_f^2$ correspond à la covariance entre demi-frères.
+
+\[
+\text{Donc : } V_A = 4 \, \sigma_f^2
+\]
+}
+
+\only<3>{
+\textbf{Extension : plein frères et designs hiérarchiques}
+
+\begin{itemize}
+\item Plein frères : covariance intra-famille = $1/2 V_A + 1/4 V_D$
+\item Hiérarchie full-sib/half-sib : 
+\[
+Y_{ijk} = \mu + s_i + d_{ij} + \varepsilon_{ijk}
+\]
+où $s_i$ = effet père, $d_{ij}$ = effet mère, $\varepsilon_{ijk}$ = résidu
+\item Covariances : 
+\[
+\operatorname{Cov}(\text{plein-frères}) = \sigma_s^2 + \sigma_d^2 = 1/2 V_A + 1/4 V_D
+\]
+\[
+\operatorname{Cov}(\text{demi-frères}) = \sigma_s^2 = 1/4 V_A
+\]
+\item On peut donc estimer $V_A = 4 \sigma_s^2$ et $V_D = 4\sigma_d^2 - 4\sigma_s^2$
+\end{itemize}
+}
+\end{frame}
+
+
+\begin{frame}{Estimation via pedigrees complexes}
+
+\textbf{Principe :}
+
+\begin{itemize}
+\item Les pedigrees peuvent inclure des relations variées : parent-enfant, pleins frères, oncle-nièce, etc.
+\item Exemple simplifié : 
+\begin{itemize}
+  \item A > B (B est enfant de A) 
+  \item C — D (C et D sont pleins frères)
+\end{itemize}
+\item Les covariances entre individus dépendent de leur degré d’apparentement.
+\item Les relations complexes ne peuvent pas être traitées par ANOVA classique.
+\item On utilise alors un \textbf{modèle mixte} (ou « modèle animal ») qui permet d’estimer VA et VD à partir de tout type de pedigree.
+\item Cette approche peut être étendue aux données génomiques pour construire automatiquement les matrices d’apparentement.
+\end{itemize}
+
+\end{frame}
+
+
+
+
+\begin{frame}{Estimation via données génomiques (VanRaden, 2008)}
+
+\textbf{Principe :}
+
+\begin{itemize}
+\item On peut utiliser les génotypes des individus pour estimer leur degré d’apparentement.
+\item La matrice $\mathbf{A}$ (apparentement additive) et $\mathbf{D}$ (dominance) peut être construite à partir des marqueurs SNP.
+\item La covariance génétique entre individus s’écrit toujours :
+\item Permet d’estimer $V_A$ et $V_D$ même sans pédigrée complet, directement à partir des données génomiques.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Pourquoi prendre en compte les relations entre individus ?}
+
+\begin{itemize}
+\item \textbf{Précision :}  Ameliore la précision sur les estimations des valeurs génétiques
+\item \textbf{Améliorer la précision :} tenir compte des liens familiaux augmente la puissance des analyses, par exemple en GWAS ou en sélection génomique.  
+\item \textbf{Flexibilité :} permet d’intégrer des pedigrees complexes ou des données génomiques pour modéliser l’ensemble des relations dans la population.
+\end{itemize}
+
+\end{frame}
+
+\section{Application}
+
+\begin{frame}{Exemple d'application}
+    \begin{center}
+      \includegraphics[width=1\textwidth,height=1\textheight,keepaspectratio=true]{figures/cor_bv.png}
+    \end{center}
+\end{frame}
+
+
+
+% After your last numbered slide
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+
+\setcounter{framenumber}{\value{finalframe}}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

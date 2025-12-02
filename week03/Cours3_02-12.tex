@@ -86,7 +86,7 @@
 \title[Génét. Quanti., UniQ ]{Cours 3 – Covariances entre apparentés}
 \author[J. Salomon]{Jemay Salomon}
 \institute[]{\small UMR GQE Le Moulon \\ Université Paris–Saclay, INRAE, CNRS, AgroParisTech}
-\date{Nov. 25, 2025}
+\date{Dec. 02, 2025}
 
 %% Title page
 \begin{frame}[plain,t]
@@ -180,7 +180,7 @@ E(\alpha_i \alpha_{i'}) \;=\; \varphi_A\, V(\alpha).
 
 
 \begin{frame}
-\frametitle{Modèle génétique à un locus (Fisher)}
+\frametitle{Modèle génétique à un locus et deux allèles (Modèle de Fisher)}
 \only<1>{
 Pour un individu de génotype $(i,j)$ :
 \[
@@ -357,8 +357,8 @@ Enfant : $Y$ peut être $A_iA_{i'}$, $A_iA_{j'}$, $A_jA_{i'}$, $A_jA_{j'}$
 
 \[
 \begin{cases}
-\text{Si l’allèle transmis est } A_{i'} \text{ ou } A_{j'} : P(i \equiv i') = 0 \\
-\text{Si l’allèle transmis est } A_i \text{ ou } A_j : P(i \equiv i') = 1/2
+\text{Si l’allèle tiré est } A_{i'} \text{ ou } A_{j'} : P(i \equiv i') = 0 \\
+\text{Si l’allèle tiré est } A_i \text{ ou } A_j : P(i \equiv i') = 1/2
 \end{cases}
 \]
 
@@ -392,19 +392,48 @@ L’allèle transmis est forcément $i$, probabilité $1/2$ chez un diploïde
 \only<3>{
 \textbf{Cas 3 : Autofécondation d’un parent hétérozygote}
 
-Parent : $X = A_i A_j$, $i \neq j$  
+Parent : $X = A_i A_j$, $\; i \neq j$  
 
-Descendant issu d’autofécondation : $Y$  
+Gamètes produits : $A_i$ et $A_j$ (avec probabilité $\frac{1}{2}$ chacun)
+
+\medskip
+\textbf{Tableau de Punnett :}
+
+\[
+\begin{array}{c|cc}
+ & A_i & A_j \\
+\hline
+A_i & A_i A_i & A_i A_j \\
+A_j & A_j A_i & A_j A_j \\
+\end{array}
+\]
+
+\medskip
+\textbf{Probabilités génotypiques chez le descendant :}
+\[
+P(A_iA_i) = \frac{1}{4}, \quad
+P(A_iA_j) = \frac{1}{2}, \quad
+P(A_jA_j) = \frac{1}{4}
+\]
+}
+
+\only<4>{
+\medskip
+\textbf{Coefficients d’identité :}
 
 \[
 \varphi_A = \frac{1}{2}, \qquad \varphi_D = \frac{1}{2}
 \]
 
 \[
-\operatorname{Cov}(X,Y) = 2 \, \varphi_A \, V_A + \varphi_D \, V_D
+\boxed{
+\operatorname{Cov}(X,Y)
+= 2 \, \varphi_A \, V_A + \varphi_D \, V_D
 = V_A + \frac{1}{2} V_D
+}
 \]
 }
+
 \end{frame}
 
 
@@ -547,23 +576,7 @@ où $s_i$ = effet père, $d_{ij}$ = effet mère, $\varepsilon_{ijk}$ = résidu
 \item Les covariances entre individus dépendent de leur degré d’apparentement.
 \item Les relations complexes ne peuvent pas être traitées par ANOVA classique.
 \item On utilise alors un \textbf{modèle mixte} (ou « modèle animal ») qui permet d’estimer VA et VD à partir de tout type de pedigree.
-\item Cette approche peut être étendue aux données génomiques pour construire automatiquement les matrices d’apparentement.
-\end{itemize}
-
-\end{frame}
-
-
-
-
-\begin{frame}{Estimation via données génomiques (VanRaden, 2008)}
-
-\textbf{Principe :}
-
-\begin{itemize}
-\item On peut utiliser les génotypes des individus pour estimer leur degré d’apparentement.
-\item La matrice $\mathbf{A}$ (apparentement additive) et $\mathbf{D}$ (dominance) peut être construite à partir des marqueurs SNP.
-\item La covariance génétique entre individus s’écrit toujours :
-\item Permet d’estimer $V_A$ et $V_D$ même sans pédigrée complet, directement à partir des données génomiques.
+\item Cette approche peut être étendue aux données génomiques pour construire automatiquement les matrices d’apparentement (VanRaden, 2008)
 \end{itemize}
 
 \end{frame}
@@ -572,9 +585,12 @@ où $s_i$ = effet père, $d_{ij}$ = effet mère, $\varepsilon_{ijk}$ = résidu
 \begin{frame}{Pourquoi prendre en compte les relations entre individus ?}
 
 \begin{itemize}
-\item \textbf{Précision :}  Ameliore la précision sur les estimations des valeurs génétiques
-\item \textbf{Améliorer la précision :} tenir compte des liens familiaux augmente la puissance des analyses, par exemple en GWAS ou en sélection génomique.  
-\item \textbf{Flexibilité :} permet d’intégrer des pedigrees complexes ou des données génomiques pour modéliser l’ensemble des relations dans la population.
+\item \textbf{Précision :}  
+\begin{itemize}
+\item Ameliore la précision sur les estimations des valeurs génétiques
+\item Augmenter la puissance des analyses, par exemple en GWAS ou en sélection génomique. 
+\end{itemize} 
+\item \textbf{Flexibilité :} permet d’intégrer des pedigrees complexes ou des données génomiques pour mieux prendre en compte la structure génétique de la population
 \end{itemize}
 
 \end{frame}

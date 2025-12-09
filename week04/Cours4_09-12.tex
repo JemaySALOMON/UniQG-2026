@@ -1,0 +1,666 @@
+\documentclass[c]{beamer} % use [t] to top-justified body text by default
+% \documentclass[c,handout]{beamer}
+\usepackage{graphicx}
+\hypersetup{colorlinks, linkcolor=black, urlcolor=gray}
+\usepackage{amsmath}
+\usepackage{bm} % to have mathematical symbols in bold
+\usepackage{multirow}
+\usepackage{tikz}
+% \usepackage[francais]{babel}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% https://tex.stackexchange.com/a/82558
+\usepackage[absolute,overlay]{textpos}
+% \usepackage[texcoord,grid,gridunit=mm,gridcolor=red!10,subgridcolor=green!10]{eso-pic}
+
+\graphicspath{{./figures/}}
+
+% -----------------------------------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{alerted text}{fg=purple}
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeameroption{hide notes}
+% \setbeameroption{show notes}
+\setbeamertemplate{note page}[plain]
+
+\setbeamertemplate{frametitle}{
+  \vspace{0.2cm}
+  \makebox[\linewidth][c]{
+    \parbox{0.9\linewidth}{\centering
+      \bfseries\insertframetitle
+    }
+  }
+}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode
+  \hbox{
+    \hspace*{-0.06cm}
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+      \usebeamerfont{author in head/foot}\insertshortauthor \hspace*{1em} \insertshortinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.50\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}
+      \usebeamerfont{section in head/foot}\insertshorttitle
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.27\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+      \usebeamerfont{section in head/foot}\insertshortdate{}\hspace*{2em}
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}
+  }
+  \vskip0pt
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    \addtocounter{framenumber}{-1}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    \addtocounter{framenumber}{-1}
+    \tableofcontents[currentsubsection,hideothersubsections,sectionstyle=show/shaded,subsectionstyle=show/shaded]
+  \end{frame}
+}
+% -----------------------------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Beginning of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title[Génét. Quanti., UniQ ]{TD: Estimation de (co)variances génétiques}
+\author[J. Salomon]{Jemay Salomon}
+\institute[]{\small UMR GQE Le Moulon \\ Université Paris–Saclay, INRAE, CNRS, AgroParisTech}
+\date{Dec. 09, 2025}
+
+%% Title page
+\begin{frame}[plain,t]
+\noindent
+%\includegraphics[height=0.7cm]{figures/logo-gqe-le-moulon.png}\hfill
+%\includegraphics[height=0.8cm]{figures/logos_mobidiv.jpeg}
+
+\vfill
+\begin{center}
+  %PLANTCOM meeting, Dijon
+
+  \bigskip
+
+  \bigskip
+  
+  {\fontsize{14pt}{16pt}\selectfont\bfseries \inserttitle}\\[0.8cm] 
+  {\large\insertauthor}\\[0.4cm] 
+  {\normalsize\insertinstitute}
+\end{center}
+\vfill
+
+\noindent
+\includegraphics[width=2cm]{figures/logo_faculte_sciences.png}\hfill
+\includegraphics[width=0.8cm]{figures/logo-inrae-fond-blanc.png}\hfill
+\includegraphics[width=0.5cm]{figures/logo_CNRS_biologie.png}\hfill
+\includegraphics[width=1.5cm]{figures/logo_agroparistech.png}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% --Begin-Document --%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+\section{Modèle linéaire simple}
+\subsection{Notations}
+%diapos
+\begin{frame}
+\frametitle{Notations}
+
+\only<1>{
+
+\[
+\mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\epsilon}
+\]
+
+\begin{itemize}
+\setbeamertemplate{itemize item}[ball]
+    \item $\mathbf{y}$ : vecteur de dimension $n$ contenant les observations (réponses)
+    \item $X$ : matrice d'incidence de dimension $n \times p$ des variables explicatives (prédicteurs)
+    \item $\boldsymbol{\beta}$ : vecteur de dimension $p$ contenant les paramètres correspondant aux effets des variables explicatives sur la moyenne des observations
+    \item $\boldsymbol{\epsilon}$ : vecteur de dimension $n$ contenant les erreurs modélisées par des variables aléatoires
+    \item $n$ : nombre d'observations
+\end{itemize}
+}
+
+
+\only<2>{
+\begin{itemize}
+\setbeamertemplate{itemize item}[ball]
+    \item $i$ : indice indiquant la $i$-ème observation, donc $i \in \{1, \ldots, n\}$
+    \item $p$ : nombre de variables explicatives; on suppose $n > p$ (pas toujours le cas!)
+    \item $j$ : indice indiquant la $j$-ème variable explicative, donc $j \in \{1, \ldots, p\}$
+    \item $R$ : matrice de dimension $n \times n$ de variance-covariance des erreurs (supposée définie positive, donc inversible); $R = \sigma^2 I_n$ où $I_n$ correspond à la matrice identité $n \times n$
+\end{itemize}
+}
+\end{frame}
+
+\subsection{Vraissemblance}
+
+%diapos
+\begin{frame}
+\frametitle{Vraisemblance}
+
+\begin{itemize}
+    \item \textbf{données} : $\mathcal{D} = \{\mathbf{y} \mid X\}$
+    \item \textbf{paramètres} : $\Theta = \{\boldsymbol{\beta}, \sigma^2\}$
+\end{itemize}
+
+\vspace{0.5cm}
+\[
+\mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\epsilon} \quad\text{avec}\quad \boldsymbol{\epsilon} \sim \mathcal{N}(0, \sigma^2 I_n)
+\]
+
+\[
+\Leftrightarrow \quad \mathbf{y} \mid X, \boldsymbol{\beta}, \sigma^2 \sim \mathcal{N}(X\boldsymbol{\beta}, \sigma^2 I_n)
+\]
+
+\vspace{0.5cm}
+L'espérance et la variance-covariance des observations sont :
+\begin{itemize}
+    \item $\mathbb{E}[\mathbf{y} \mid X, \boldsymbol{\beta}] = X\boldsymbol{\beta}$
+    \item $\text{Cov}[\mathbf{y} \mid \sigma^2] = \sigma^2 I_n$
+\end{itemize}
+
+\end{frame}
+
+%diapos
+\begin{frame}
+\frametitle{Vraisemblance}
+
+Les observations étant modélisées comme indépendantes conditionnellement aux prédicteurs, on peut utiliser leur produit :
+
+\[
+\mathcal{L}(\Theta; \mathcal{D}) = f(\mathbf{y} \mid X, \boldsymbol{\beta}, \sigma^2) 
+= \prod_{i=1}^n f(y_i \mid X_{i\cdot}, \boldsymbol{\beta}, \sigma^2)
+\]
+
+où $X_{i\cdot}$ étant la $i$-ème ligne de $X$.
+
+\vspace{1cm}
+
+En pratique, on utilise la \textbf{log-vraisemblance} $\ell$, et le produit se transforme en somme :
+
+\[
+\ell(\Theta; \mathcal{D}) = \sum_{i=1}^n \log f(y_i \mid \mathbf{x}_i, \Theta)
+\]
+
+\[
+= -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma^2) - \frac{1}{2\sigma^2}(\mathbf{y} - X\boldsymbol{\beta})^\top(\mathbf{y} - X\boldsymbol{\beta})
+\]
+
+\end{frame}
+
+
+
+\subsection{Estimation de $\mathbf{\beta}$}
+%diapos
+\begin{frame}
+\frametitle{Estimation de $\boldsymbol{\beta}$ }
+
+\vspace{0.3cm}
+\begin{block}{Distance à minimiser}
+La "longueur" du vecteur d'erreurs $\boldsymbol{\epsilon} = \mathbf{y} - X\boldsymbol{\beta}$.
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Méthode des moindres carrés ordinaires (OLS)}
+Identifier $\hat{\boldsymbol{\beta}}$ qui minimise la somme des carrés des erreurs (ESS) :
+\[
+\hat{\boldsymbol{\beta}}_{\text{OLS}} = {\arg\min}_{\boldsymbol{\beta}} \text{ESS}
+\]
+\[
+\text{ESS} = \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n (y_i - X_{i\cdot}\boldsymbol{\beta})^2
+\]
+\end{block}
+
+\end{frame}
+
+
+%diapos
+\begin{frame}
+\frametitle{Estimation de $\boldsymbol{\beta}$ }
+
+\begin{block}{Forme matricielle}
+\[
+\text{ESS} = (\mathbf{y} - X\boldsymbol{\beta})^\top (\mathbf{y} - X\boldsymbol{\beta}) = \|\mathbf{y} - X\boldsymbol{\beta}\|_2^2
+\]
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Dérivées}
+\begin{itemize}
+    \item \textbf{Dérivée première} : $\displaystyle \frac{d\text{ESS}}{d\boldsymbol{\beta}}(\boldsymbol{\beta}) = -2X^\top(\mathbf{y} - X\boldsymbol{\beta})$
+    \item \textbf{Dérivée seconde} : $\displaystyle \frac{d^2\text{ESS}}{d\boldsymbol{\beta}^2}(\boldsymbol{\beta}) = 2X^\top X$
+\end{itemize}
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Convexité}
+La dérivée seconde étant positive, l'ESS est convexe : il existe un minimum global.
+\end{block}
+
+\end{frame}
+
+%diapos
+\begin{frame}
+\frametitle{Estimation de $\boldsymbol{\beta}$ }
+
+\begin{block}{Équations normales de Gauss}
+Annulation de la dérivée première :
+\[
+\frac{d\text{ESS}}{d\boldsymbol{\beta}}(\hat{\boldsymbol{\beta}}) = 0 \quad\Leftrightarrow\quad X^\top X \hat{\boldsymbol{\beta}} = X^\top \mathbf{y}
+\]
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Estimation de $\boldsymbol{\beta}$}
+\[
+\hat{\boldsymbol{\beta}} = (X^\top X)^{-} X^\top \mathbf{y}
+\]
+où $^{-}$ désigne l'inverse généralisée.
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Grandeurs dérivées}
+\begin{itemize}
+    \item \textbf{Valeurs ajustées} : $\hat{\mathbf{y}} = X\hat{\boldsymbol{\beta}}$
+    \item \textbf{Résidus} : $\hat{\boldsymbol{\epsilon}} = \mathbf{y} - X\hat{\boldsymbol{\beta}} = \mathbf{y} - \hat{\mathbf{y}}$
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+%diapos
+\begin{frame}
+\frametitle{Estimation de $\boldsymbol{\beta}$ }
+
+\begin{block}{Projection orthogonale}
+$\hat{\boldsymbol{\beta}}$ minimise la distance entre $\mathbf{y}$ et $C(X)=X\mathbf{\beta}$ : projection orthogonale de $\mathbf{y}$ sur $C(X)$.
+\[
+X^\top(\mathbf{y} - X\boldsymbol{\beta}) = 0
+\]
+Matrice de projection (hat matrix) : $P = X(X^\top X)^{-} X^\top$
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Maximum de vraisemblance}
+Sous l'hypothèse de normalité, on retrouve les mêmes équations :
+\[
+\frac{\partial \ell}{\partial \boldsymbol{\beta}}(\hat{\boldsymbol{\beta}}) = 0 \quad\Leftrightarrow\quad (X^\top X)\hat{\boldsymbol{\beta}} = X^\top \mathbf{y}
+\]
+\end{block}
+
+\end{frame}
+
+\subsection{Estimation de $\sigma^2$}
+%diapos
+\begin{frame}
+\frametitle{Estimation de $\sigma^2$ }
+
+\only<1>{
+
+\begin{block}{Somme des carrés résiduelle (RSS)}
+\[
+\text{RSS} = \sum_i \hat{\epsilon}_i^2 = (\mathbf{y} - \hat{\mathbf{y}})^\top (\mathbf{y} - \hat{\mathbf{y}}) = \mathbf{y}^\top (I_n - P)\mathbf{y}
+\]
+avec $P = X(X^\top X)^{-}X^\top$ (matrice de projection, idempotente et symétrique).
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Espérance de RSS}
+\small
+\begin{align*}
+\mathbb{E}[\text{RSS}] &= \mathbb{E}[\text{tr}[\mathbf{y}^\top (I_n - P)\mathbf{y}]] \\
+&= \text{tr}[(I_n - P)\mathbb{E}[\mathbf{y}\mathbf{y}^\top]] \\
+&= \text{tr}[(I_n - P)(X\boldsymbol{\beta}\boldsymbol{\beta}^\top X^\top + \sigma^2 I_n)] \\
+&= \sigma^2 \text{tr}[(I_n - P)] \\
+&= \sigma^2 (n - r(X))
+\end{align*}
+\end{block}
+
+}
+
+\only<2>{
+\vspace{0.3cm}
+\begin{block}{Estimateur sans biais (OLS)}
+\[
+S_{\text{OLS}}^2 = \frac{\text{RSS}}{n - r(X)}
+\]
+où $r(X) = p$ quand $X$ est de plein rang.
+\end{block}
+}
+
+\end{frame}
+
+
+%diapos
+\begin{frame}
+\frametitle{Estimation de $\sigma^2$}
+
+\only<1>{
+
+\begin{block}{Estimateur du maximum de vraisemblance}
+\[
+\frac{\partial \ell}{\partial \sigma^2}(\hat{\sigma}^2) = 0 \quad\Leftrightarrow\quad 
+\hat{\sigma}^2_{\text{ML}} = \frac{1}{n}(\mathbf{y} - X\hat{\boldsymbol{\beta}})^\top(\mathbf{y} - X\hat{\boldsymbol{\beta}}) = \frac{\text{RSS}}{n}
+\]
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Biais de l'estimateur ML}
+\[
+\mathbb{E}[\hat{\sigma}^2_{\text{ML}}] = \frac{n - r(X)}{n} \sigma^2
+\]
+L'estimateur ML est \textbf{biaisé} (sous-estime $\sigma^2$).
+\end{block}
+}
+
+\only<2>{
+\vspace{0.3cm}
+\begin{block}{Interprétation}
+\begin{itemize}
+    \item \textbf{Estimateur OLS} : sans biais, divise par $n - r(X)$ (degrés de liberté)
+    \item \textbf{Estimateur ML} : biaisé, divise par $n$ (néglige l'incertitude sur $\hat{\boldsymbol{\beta}}$)
+    \item Le biais vient de la perte de degrés de liberté due à l'estimation de $\boldsymbol{\beta}$
+\end{itemize}
+\end{block}
+
+\vspace{0.3cm}
+\begin{alertblock}{En pratique}
+On utilise généralement l'estimateur OLS : $S^2 = \frac{\text{RSS}}{n-p}$ (quand $X$ est de plein rang).
+\end{alertblock}
+}
+
+\end{frame}
+
+\section{Modèle linéaire mixte}
+
+
+\section{Notations}
+
+\begin{frame}
+\frametitle{Notations}
+\[
+\mathbf{y} = X\boldsymbol{\beta} + Zu + \boldsymbol{\epsilon}
+\]
+
+Notations complémentaires: 
+
+\begin{itemize}
+    \item $q$ : nombre de variables aléatoires pour structurer la variance-covariance des observations, avec $n > q$
+    \item $k$ : indice indiquant la $k$-ème variable aléatoire, donc $k \in \{1, \ldots, q\}$
+    \item $Z$ : matrice d'incidence de dimension $n \times q$ reliant les $y_i$ aux $u_k$
+    \item $G$ : matrice de variance-covariance de dimension $q \times q$ du vecteur $\mathbf{u}$, telle que $G = \sigma_u^2 A$ où $A$ est connue et définie positive
+    \item $\boldsymbol{\varphi}$ : vecteur des composantes de la variance, ici égal à $(\sigma_u^2, \sigma^2)^\top$
+    \item $H$ : matrice de variance-covariance de dimension $n \times n$ dépendant de $\boldsymbol{\varphi}$
+\end{itemize}
+
+\end{frame}
+
+\subsection{Vraisemblance}
+\begin{frame}
+\frametitle{Vraisemblance}
+
+\begin{itemize}
+    \item \textbf{données} : $\mathcal{D} = \{\mathbf{y} \mid X, Z\}$
+    \item \textbf{paramètres} : $\Theta = \{\boldsymbol{\beta}, \sigma_u^2, \sigma_e^2\}$
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Vraisemblance :}
+\[
+\mathbf{y} = X\boldsymbol{\beta} + Z\mathbf{u} + \boldsymbol{\epsilon}
+\]
+avec $\mathbf{u} \sim \mathcal{N}(0, G)$, $\boldsymbol{\epsilon} \sim \mathcal{N}(0, R)$ et $\text{Cov}[\mathbf{u}, \boldsymbol{\epsilon}] = 0$
+
+\vspace{0.3cm}
+De plus, on a ici :
+\begin{itemize}
+    \item $G = \sigma_u^2 A$
+    \item $R = \sigma_e^2 V$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Vraisemblance du modèle mixte (suite)}
+
+De manière générale, on peut donc écrire :
+\[
+\mathbf{y} \mid \boldsymbol{\beta}, \mathbf{u}, R \sim \mathcal{N}(X\boldsymbol{\beta} + Z\mathbf{u}, R)
+\]
+
+\vspace{0.5cm}
+Après intégration des $\mathbf{u}_k$ (on dit aussi qu'elles ont été "marginalisées"), on obtient :
+\[
+\mathbf{y} \mid \boldsymbol{\beta}, G, R \sim \mathcal{N}(X\boldsymbol{\beta}, ZGZ^\top + R)
+\]
+
+\vspace{0.5cm}
+L'espérance et la variance-covariance des observations sont bien des fonctions linéaires de paramètres :
+\begin{itemize}
+    \item $\mathbb{E}[\mathbf{y} \mid \boldsymbol{\beta}] = X\boldsymbol{\beta}$
+    \item $\text{Cov}[\mathbf{y} \mid \boldsymbol{\varphi}] := H = ZGZ^\top + R$ \\
+    (égale ici à $\sigma_u^2 ZAZ^\top + \sigma^2 V$)
+\end{itemize}
+
+\end{frame}
+
+\subsection{Estimation de $\mathbf{\beta}$ et prediction de \textbf{u} }
+
+\begin{frame}
+\frametitle{Estimation de $\boldsymbol{\beta}$ et prédiction de $\mathbf{u}$}
+
+\begin{block}{Deux approches}
+\begin{itemize}
+    \item \textbf{Paradigme fréquentiste} :
+    \begin{itemize}
+        \item $\hat{\boldsymbol{\beta}}$ : BLUE (Best Linear Unbiased Estimator)
+        \item $\hat{\mathbf{u}}$ : BLUP (Best Linear Unbiased Predictor)
+    \end{itemize}
+    \item \textbf{Paradigme bayésien} : mêmes formules, interprétation différente
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Estimation de $\boldsymbol{\beta}$ et prédiction de $\mathbf{u}$}
+
+\begin{block}{Log-densité conjointe}
+\[
+\log f(\mathbf{y}, \mathbf{u} \mid \boldsymbol{\beta}, G, R) = \log f(\mathbf{y} \mid \boldsymbol{\beta}, \mathbf{u}, R) + \log f(\mathbf{u} \mid G)
+\]
+\[
+= -\frac{1}{2}\left[\begin{array}{l}
+n\log 2\pi + \log|R| + (\mathbf{y} - X\boldsymbol{\beta} - Z\mathbf{u})^\top R^{-1}(\mathbf{y} - X\boldsymbol{\beta} - Z\mathbf{u}) \\
++ q\log 2\pi + \log|G| + \mathbf{u}^\top G^{-1}\mathbf{u}
+\end{array}\right]
+\]
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Estimation de $\mathbf{\beta}$ et prediction de \textbf{u}}
+
+\begin{block}{Estimateur BLUE de $\boldsymbol{\beta}$}
+\[
+\hat{\boldsymbol{\beta}} = (X^\top H^{-1} X)^{-} X^\top H^{-1} \mathbf{y}
+\]
+Moindres carrés généralisés
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Prédicteur BLUP de $\mathbf{u}$}
+\[
+\hat{\mathbf{u}} = G Z^\top H^{-1} (\mathbf{y} - X\hat{\boldsymbol{\beta}})
+\]
+\end{block}
+\end{frame}
+
+
+\subsection{Estimation de $\sigma_u^2$, $\sigma_e^2$}
+\begin{frame}
+\frametitle{Estimation de $\sigma_u^2$ et $\sigma^2$}
+
+\begin{block}{Problème du maximum de vraisemblance (ML)}
+\begin{itemize}
+    \item Comme pour le modèle linéaire classique, ML produit des estimateurs \textbf{biaisés} de $\sigma_u^2$ et $\sigma_e^2$
+    \item Nécessité d'une méthode spécifique
+\end{itemize}
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Maximum de vraisemblance restreinte (ReML)}
+Méthode développée pour estimer les composantes de la variance :
+\begin{itemize}
+    \item Décompose la vraisemblance en deux parties
+    \item Une partie ne dépend que des variables aléatoires $\mathbf{u}$ sans $\boldsymbol{\beta}$
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Principe du ReML}
+\begin{block}{Élimination de $\boldsymbol{\beta}$}
+\begin{itemize}
+    \item On cherche des vecteurs tels que $v^\top X = 0$
+    \item Il existe $n - r(X)$ vecteurs linéairement indépendants
+    \item Exemple : $S = I_n - X(X^\top X)^{-}X^\top$ vérifie $SX = 0$
+\end{itemize}
+\end{block}
+\vspace{0.3cm}
+\begin{block}{Vraisemblance restreinte}
+\[
+K^\top \mathbf{y} \sim \mathcal{N}(0, K^\top H(\boldsymbol{\varphi})K)
+\]
+avec $K^\top K = I_n$ et $K^\top X = 0$
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Procédure}
+\begin{enumerate}
+    \item Maximiser la vraisemblance restreinte pour obtenir $\hat{\boldsymbol{\varphi}}$
+    \item Calculer $\hat{\boldsymbol{\beta}}|\hat{\boldsymbol{\varphi}}$ (BLUE empirique)
+    \item Calculer $\hat{\mathbf{u}}|\hat{\boldsymbol{\varphi}}$ (BLUP empirique)
+\end{enumerate}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Algorithme EM}
+\begin{block}{Principe général}
+Algorithme pour modèles avec "données manquantes" (variables latentes) :
+\begin{itemize}
+    \item \textbf{Données manquantes} : $\mathbf{z} = (\boldsymbol{\beta}^\top, \mathbf{u}^\top)^\top$
+    \item \textbf{Données complètes} : $\mathbf{x} = (\mathbf{y}^\top, \mathbf{z}^\top)^\top$
+\end{itemize}
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Fonction Q}
+\[
+Q(\boldsymbol{\varphi}; \boldsymbol{\varphi}^{(t)}) = \mathbb{E}_{\mathbf{z}|\mathbf{y},\boldsymbol{\varphi}^{(t)}}[\ell(\boldsymbol{\varphi}; \mathbf{x})]
+\]
+Espérance de la log-vraisemblance complète
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Algorithme EM}
+
+\begin{block}{Étapes de l'algorithme}
+\begin{enumerate}
+    \item \textbf{E (Expectation)} : Calculer $Q(\boldsymbol{\varphi}; \boldsymbol{\varphi}^{(t)})$
+    \item \textbf{M (Maximization)} : Maximiser $Q$ par rapport à $\boldsymbol{\varphi}$ :
+    \[
+    \boldsymbol{\varphi}^{(t+1)} = \arg\max_{\boldsymbol{\varphi}} Q(\boldsymbol{\varphi}; \boldsymbol{\varphi}^{(t)})
+    \]
+\end{enumerate}
+\end{block}
+
+\vspace{0.3cm}
+\begin{block}{Vraisemblance complète du modèle mixte}
+\[
+L(\boldsymbol{\varphi}; \mathbf{x}) \propto f(\mathbf{y}|\boldsymbol{\beta},\mathbf{u},\sigma^2) \times f(\mathbf{u}|\sigma_u^2)
+\]
+\[
+\ell(\sigma^2) = -\frac{n}{2}\log 2\pi - \frac{n}{2}\log\sigma^2 - \frac{\boldsymbol{\epsilon}^\top\boldsymbol{\epsilon}}{2\sigma^2}
+\]
+\[
+\ell(\sigma_u^2) = -\frac{q}{2}\log 2\pi - \frac{q}{2}\log\sigma_u^2 - \frac{\mathbf{u}^\top\mathbf{u}}{2\sigma_u^2}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Références}
+\only<1>{
+\begin{itemize}
+    \item \textbf{Dagnelie (2012)} : \emph{Principes d’expérimentation: planification des expériences et analyses de leurs résultats}
+    \item \textbf{Dempfle (1977)} : \emph{Relation entre BLUP (Best Linear Unbiased Prediction) et estimateurs bayésiens}
+    \item \textbf{Foulley (2002)} : \emph{Méthodes du maximum de vraisemblance en modèle linéaire mixte}
+    \item \textbf{Foulley (2002)} : \emph{Algorithme EM : théorie et application au modèle mixte}
+    \item \textbf{Robert (2001)} : \emph{L’analyse statistique bayésienne}
+    \end{itemize}
+    }
+    \only<2>{
+    
+    \begin{itemize}
+    \item \textbf{Gumedze et Dunne (2011)} : \emph{Parameter estimation and inference in the linear mixed model}
+    \item \textbf{Henderson (1950)} : \emph{Estimation of genetic parameters}
+    \item \textbf{Henderson et al. (1959)} : \emph{The Estimation of Environmental and Genetic Trends from Records Subject to Culling}
+    \item \textbf{Verbyla (1990)} : \emph{A Conditional Derivation of Residual Maximum Likelihood}
+    \item \textbf{Wand (2002)} : \emph{Vector differential calculus in statistics}
+\end{itemize}
+}
+\end{frame}
+
+% After your last numbered slide
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+
+\setcounter{framenumber}{\value{finalframe}}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

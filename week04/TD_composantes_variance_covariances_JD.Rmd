@@ -243,7 +243,7 @@ $$\begin{matrix}
 Comme tous les individus doivent être référencés, les derniers ancêtres communs connus ont aussi des ascendants mais ils sont inconnus, donc ils reçoivent des valeurs NA pour leur père (sire) et leur mère (dam). NB: $MrX$ sera NA aussi pour ses parents). 
   
 Ainsi il est facile de constituer le pedigree des individus simulés.
-  
+
 ```{r}
 # il faut fabriquer le fichier de pedigree
 Pedigree<-as.data.frame(cbind(as.character(D$Individu), as.character(D$Pere), as.character(D$Mere)))
@@ -251,9 +251,106 @@ Pedigree<-as.data.frame(cbind(as.character(D$Individu), as.character(D$Pere), as
 names(Pedigree)<-c("id","Sire","Dam")
 head(Pedigree)
 ```
+## Exemple : Construction d’un pedigree simple et matrices A et D
+
+Considérons quatre individus : A, B, C et D.
+
+Le pédigrée est :
+
+- A > B  (A est le parent de B)
+- C -- D (C et D sont pleins frères)
+- Nous n’avons aucune information sur la parenté A,C AD, BC ou BD donc toutes leur
+covariances sont nulles :
+
+Les deux familles sont indépendantes.
+
+Nous voulons construire les matrices :
+
+- MA = apparentement additif  
+- MD = apparentement dominance  
+
+La matrice suivante montre les contributions :
+
+\[
+\begin{array}{c|cccc}
+ & A & B & C & D \\
+\hline
+A &
+\,V_P &
+\tfrac12\,V_A &
+0 &
+0 \\
+B &
+\tfrac12\,V_A &
+\,V_P &
+0 &
+0 \\
+C &
+0 &
+0 &
+\,V_P &
+\tfrac12 V_A + \tfrac14 V_D \\
+D &
+0 &
+0 &
+\tfrac12 V_A + \tfrac14 V_D &
+\,V_P
+\end{array}
+\]
+
+Ainsi :
+
+- \(\mathrm{Cov}(A,B)=\frac12 V_A\) (relation parent–enfant)
+- \(\mathrm{Cov}(C,D)=\frac12 V_A + \frac14 V_D\) (pleins-frères)
+- toutes les autres covariances = 0 (familles indépendantes)
+
+
+## Matrice d’apparentement additive A
+
+Le coefficient d’apparentement vaut :
+- 1 pour un individu avec lui-même
+- 1/2 pour une relation parent–enfant
+- 1/2 pour des pleins frères
+- 0 sinon
+
+Ainsi :
+
+\[
+MA =
+\begin{pmatrix}
+1   & \tfrac{1}{2} & 0             & 0             \\
+\tfrac{1}{2} & 1   & 0             & 0             \\
+0   & 0   & 1             & \tfrac{1}{2} \\
+0   & 0   & \tfrac{1}{2} & 1
+\end{pmatrix}
+\]
+
+
+## Matrice d’apparentement dominance D
+
+Rappel :
+- dominance = 1 entre un individu et lui-même
+- dominance = 1/4 entre pleins-frères
+- domination = 0 pour parent–enfant
+- dominance = 0 si non-apparentés
+
+Ainsi :
+
+\[
+MD =
+\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & \tfrac{1}{4} \\
+0 & 0 & \tfrac{1}{4} & 1
+\end{pmatrix}
+\]
+
   
 Pour utiliser le package nadiv qui va fabriquer les matrices de simple et de double apparentement (PhiA=Kinship and PhiD=fraternity/Dominance) il faut ajouter l'information sur les parents dont nous ne connaissons pas les parents *a priori*.   
 Nous Utilisons la fonction *prepPed* de **nadiv** qui va les ajouter. 
+
+
   
 ```{r}
 Ped<-prepPed(Pedigree)

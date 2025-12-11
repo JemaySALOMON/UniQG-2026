@@ -83,7 +83,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-\title[Génét. Quanti., UniQ ]{Introduction aux MLMs et estimation de (co)variances génétiques}
+\title[Génét. Quanti., UniQ ]{Introduction aux MLMs et egstimation de (co)variances génétiques}
 \author[J. Salomon]{Jemay Salomon}
 \institute[]{\small UMR GQE Le Moulon \\ Université Paris–Saclay, INRAE, CNRS, AgroParisTech}
 \date{Dec. 09, 2025}
@@ -157,7 +157,7 @@
     \item $i$ : indice indiquant la $i$-ème observation, donc $i \in \{1, \ldots, n\}$
     \item $p$ : nombre de variables explicatives; on suppose $n > p$ (pas toujours le cas!)
     \item $j$ : indice indiquant la $j$-ème variable explicative, donc $j \in \{1, \ldots, p\}$
-    \item $R$ : matrice de dimension $n \times n$ de variance-covariance des erreurs (supposée définie positive, donc inversible); $R = \sigma^2 I_n$ où $I_n$ correspond à la matrice identité $n \times n$
+    \item $R$ : matrice de dimension $n \times n$ de variance-covariance des erreurs (supposée définie positive, donc inversible); $R = \sigma_e^2 I_n$ où $I_n$ correspond à la matrice identité $n \times n$
 \end{itemize}
 }
 \end{frame}
@@ -170,23 +170,23 @@
 
 \begin{itemize}
     \item \textbf{données} : $\mathcal{D} = \{\mathbf{y} \mid X\}$
-    \item \textbf{paramètres} : $\Theta = \{\boldsymbol{\beta}, \sigma^2\}$
+    \item \textbf{paramètres} : $\Theta = \{\boldsymbol{\beta}, \sigma_e^2\}$
 \end{itemize}
 
 \vspace{0.5cm}
 \[
-\mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\epsilon} \quad\text{avec}\quad \boldsymbol{\epsilon} \sim \mathcal{N}(0, \sigma^2 I_n)
+\mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\epsilon} \quad\text{avec}\quad \boldsymbol{\epsilon} \sim \mathcal{N}(0, \sigma_e^2 I_n)
 \]
 
 \[
-\Leftrightarrow \quad \mathbf{y} \mid X, \boldsymbol{\beta}, \sigma^2 \sim \mathcal{N}(X\boldsymbol{\beta}, \sigma^2 I_n)
+\Leftrightarrow \quad \mathbf{y} \mid X, \boldsymbol{\beta}, \sigma_e^2 \sim \mathcal{N}(X\boldsymbol{\beta}, \sigma_e^2 I_n)
 \]
 
 \vspace{0.5cm}
 L'espérance et la variance-covariance des observations sont :
 \begin{itemize}
     \item $\mathbb{E}[\mathbf{y} \mid X, \boldsymbol{\beta}] = X\boldsymbol{\beta}$
-    \item $\text{Cov}[\mathbf{y} \mid \sigma^2] = \sigma^2 I_n$
+    \item $\text{Cov}[\mathbf{y} \mid \sigma_e^2] = \sigma_e^2 I_n$
 \end{itemize}
 
 \end{frame}
@@ -198,8 +198,8 @@ L'espérance et la variance-covariance des observations sont :
 Les observations étant modélisées comme indépendantes conditionnellement aux prédicteurs, on peut utiliser leur produit :
 
 \[
-\mathcal{L}(\Theta; \mathcal{D}) = f(\mathbf{y} \mid X, \boldsymbol{\beta}, \sigma^2) 
-= \prod_{i=1}^n f(y_i \mid X_{i\cdot}, \boldsymbol{\beta}, \sigma^2)
+\mathcal{L}(\Theta; \mathcal{D}) = f(\mathbf{y} \mid X, \boldsymbol{\beta}, \sigma_e^2) 
+= \prod_{i=1}^n f(y_i \mid X_{i\cdot}, \boldsymbol{\beta}, \sigma_e^2)
 \]
 
 où $X_{i\cdot}$ étant la $i$-ème ligne de $X$.
@@ -213,7 +213,7 @@ En pratique, on utilise la \textbf{log-vraisemblance} $\ell$, et le produit se t
 \]
 
 \[
-= -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma^2) - \frac{1}{2\sigma^2}(\mathbf{y} - X\boldsymbol{\beta})^\top(\mathbf{y} - X\boldsymbol{\beta})
+= -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma_e^2) - \frac{1}{2\sigma_e^2}(\mathbf{y} - X\boldsymbol{\beta})^\top(\mathbf{y} - X\boldsymbol{\beta})
 \]
 
 \end{frame}
@@ -321,10 +321,10 @@ Sous l'hypothèse de normalité, on retrouve les mêmes équations :
 
 \end{frame}
 
-\subsection{Estimation de $\sigma^2$}
+\subsection{Estimation de $\sigma_e^2$}
 %diapos
 \begin{frame}
-\frametitle{Estimation de $\sigma^2$ }
+\frametitle{Estimation de $\sigma_e^2$ }
 
 \only<1>{
 
@@ -341,9 +341,9 @@ avec $P = X(X^\top X)^{-}X^\top$ (matrice de projection, idempotente et symétri
 \begin{align*}
 \mathbb{E}[\text{RSS}] &= \mathbb{E}[\text{tr}[\mathbf{y}^\top (I_n - P)\mathbf{y}]] \\
 &= \text{tr}[(I_n - P)\mathbb{E}[\mathbf{y}\mathbf{y}^\top]] \\
-&= \text{tr}[(I_n - P)(X\boldsymbol{\beta}\boldsymbol{\beta}^\top X^\top + \sigma^2 I_n)] \\
-&= \sigma^2 \text{tr}[(I_n - P)] \\
-&= \sigma^2 (n - r(X))
+&= \text{tr}[(I_n - P)(X\boldsymbol{\beta}\boldsymbol{\beta}^\top X^\top + \sigma_e^2 I_n)] \\
+&= \sigma_e^2 \text{tr}[(I_n - P)] \\
+&= \sigma_e^2 (n - r(X))
 \end{align*}
 \end{block}
 
@@ -364,23 +364,23 @@ où $r(X) = p$ quand $X$ est de plein rang.
 
 %diapos
 \begin{frame}
-\frametitle{Estimation de $\sigma^2$}
+\frametitle{Estimation de $\sigma_e^2$}
 
 \only<1>{
 
 \begin{block}{Estimateur du maximum de vraisemblance}
 \[
-\frac{\partial \ell}{\partial \sigma^2}(\hat{\sigma}^2) = 0 \quad\Leftrightarrow\quad 
-\hat{\sigma}^2_{\text{ML}} = \frac{1}{n}(\mathbf{y} - X\hat{\boldsymbol{\beta}})^\top(\mathbf{y} - X\hat{\boldsymbol{\beta}}) = \frac{\text{RSS}}{n}
+\frac{\partial \ell}{\partial \sigma_e^2}(\hat{\sigma_e}^2) = 0 \quad\Leftrightarrow\quad 
+\hat{\sigma_e}^2_{\text{ML}} = \frac{1}{n}(\mathbf{y} - X\hat{\boldsymbol{\beta}})^\top(\mathbf{y} - X\hat{\boldsymbol{\beta}}) = \frac{\text{RSS}}{n}
 \]
 \end{block}
 
 \vspace{0.3cm}
 \begin{block}{Biais de l'estimateur ML}
 \[
-\mathbb{E}[\hat{\sigma}^2_{\text{ML}}] = \frac{n - r(X)}{n} \sigma^2
+\mathbb{E}[\hat{\sigma_e}^2_{\text{ML}}] = \frac{n - r(X)}{n} \sigma_e^2
 \]
-L'estimateur ML est \textbf{biaisé} (sous-estime $\sigma^2$).
+L'estimateur ML est \textbf{biaisé} (sous-estime $\sigma_e^2$).
 \end{block}
 }
 
@@ -420,7 +420,7 @@ Notations complémentaires:
     \item $k$ : indice indiquant la $k$-ème variable aléatoire, donc $k \in \{1, \ldots, q\}$
     \item $Z$ : matrice d'incidence de dimension $n \times q$ reliant les $y_i$ aux $u_k$
     \item $G$ : matrice de variance-covariance de dimension $q \times q$ du vecteur $\mathbf{u}$, telle que $G = \sigma_u^2 A$ où $A$ est connue et définie positive
-    \item $\boldsymbol{\varphi}$ : vecteur des composantes de la variance, ici égal à $(\sigma_u^2, \sigma^2)^\top$
+    \item $\boldsymbol{\varphi}$ : vecteur des composantes de la variance, ici égal à $(\sigma_u^2, \sigma_e^2)^\top$
     \item $H$ : matrice de variance-covariance de dimension $n \times n$ dépendant de $\boldsymbol{\varphi}$
 \end{itemize}
 
@@ -471,7 +471,7 @@ L'espérance et la variance-covariance des observations sont bien des fonctions 
 \begin{itemize}
     \item $\mathbb{E}[\mathbf{y} \mid \boldsymbol{\beta}] = X\boldsymbol{\beta}$
     \item $\text{Cov}[\mathbf{y} \mid \boldsymbol{\varphi}] := H = ZGZ^\top + R$ \\
-    (égale ici à $\sigma_u^2 ZAZ^\top + \sigma^2 V$)
+    (égale ici à $\sigma_u^2 ZAZ^\top + \sigma_e^2 V$)
 \end{itemize}
 
 \end{frame}
@@ -533,7 +533,7 @@ Moindres carrés généralisés
 
 \subsection{Estimation de $\sigma_u^2$, $\sigma_e^2$}
 \begin{frame}
-\frametitle{Estimation de $\sigma_u^2$ et $\sigma^2$}
+\frametitle{Estimation de $\sigma_u^2$ et $\sigma_e^2$}
 
 \begin{block}{Problème du maximum de vraisemblance (ML)}
 \begin{itemize}
@@ -617,10 +617,10 @@ Espérance de la log-vraisemblance complète
 \vspace{0.3cm}
 \begin{block}{Vraisemblance complète du modèle mixte}
 \[
-L(\boldsymbol{\varphi}; \mathbf{x}) \propto f(\mathbf{y}|\boldsymbol{\beta},\mathbf{u},\sigma^2) \times f(\mathbf{u}|\sigma_u^2)
+L(\boldsymbol{\varphi}; \mathbf{x}) \propto f(\mathbf{y}|\boldsymbol{\beta},\mathbf{u},\sigma_e^2) \times f(\mathbf{u}|\sigma_u^2)
 \]
 \[
-\ell(\sigma^2) = -\frac{n}{2}\log 2\pi - \frac{n}{2}\log\sigma^2 - \frac{\boldsymbol{\epsilon}^\top\boldsymbol{\epsilon}}{2\sigma^2}
+\ell(\sigma_e^2) = -\frac{n}{2}\log 2\pi - \frac{n}{2}\log\sigma_e^2 - \frac{\boldsymbol{\epsilon}^\top\boldsymbol{\epsilon}}{2\sigma_e^2}
 \]
 \[
 \ell(\sigma_u^2) = -\frac{q}{2}\log 2\pi - \frac{q}{2}\log\sigma_u^2 - \frac{\mathbf{u}^\top\mathbf{u}}{2\sigma_u^2}

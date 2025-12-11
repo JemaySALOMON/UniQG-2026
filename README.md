@@ -81,7 +81,7 @@ By the end of this course, students will be able to:
 ## Installation of Required Packages
 
 ```r
-install.packages(c("tidyverse", "lme4", "ggplot2"))
+install.packages(c("tidyverse", "lme4", "ggplot2", "nadiv", "MM4LMM", "markdown"))
 ```
 ## 📧 Contact
 **Email :** [jemay.salomon@inrae.fr](mailto:jemay.salomon@inrae.fr)  

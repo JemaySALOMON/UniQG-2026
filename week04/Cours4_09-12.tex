@@ -175,7 +175,7 @@
 
 \vspace{0.5cm}
 \[
-\mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\epsilon} \quad\text{avec}\quad \boldsymbol{\epsilon} \sim \mathcal{N}(0, \sigma_e^2 I_n)
+\mathbf{y} = X\boldsymbol{\beta} + \boldsymbol{\epsilon} \quad\text{avec}\quad \boldsymbol{\epsilon} \overset{\text{iid}}{\sim} \mathcal{N_{iid}}(0, \sigma_e^2 I_n)
 \]
 
 \[
@@ -440,7 +440,7 @@ Notations complémentaires:
 \[
 \mathbf{y} = X\boldsymbol{\beta} + Z\mathbf{u} + \boldsymbol{\epsilon}
 \]
-avec $\mathbf{u} \sim \mathcal{N}(0, G)$, $\boldsymbol{\epsilon} \sim \mathcal{N}(0, R)$ et $\text{Cov}[\mathbf{u}, \boldsymbol{\epsilon}] = 0$
+avec $\mathbf{u} \sim \mathcal{N}(0, G)$, $\boldsymbol{\epsilon}  \overset{\text{iid}}{\sim} \mathcal{N}(0, R)$ et $\text{Cov}[\mathbf{u}, \boldsymbol{\epsilon}] = 0$
 
 \vspace{0.3cm}
 De plus, on a ici :

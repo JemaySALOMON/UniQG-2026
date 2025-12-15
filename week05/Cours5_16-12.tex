@@ -1,0 +1,680 @@
+\documentclass[c]{beamer} % use [t] to top-justified body text by default
+% \documentclass[c,handout]{beamer}
+\usepackage{graphicx}
+\hypersetup{colorlinks, linkcolor=black, urlcolor=gray}
+\usepackage{amsmath}
+\usepackage{bm} % to have mathematical symbols in bold
+\usepackage{multirow}
+\usepackage{tikz}
+% \usepackage[francais]{babel}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% https://tex.stackexchange.com/a/82558
+\usepackage[absolute,overlay]{textpos}
+% \usepackage[texcoord,grid,gridunit=mm,gridcolor=red!10,subgridcolor=green!10]{eso-pic}
+
+\graphicspath{{./figures/}}
+
+% -----------------------------------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{alerted text}{fg=purple}
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeameroption{hide notes}
+% \setbeameroption{show notes}
+\setbeamertemplate{note page}[plain]
+
+\setbeamertemplate{frametitle}{
+  \vspace{0.2cm}
+  \makebox[\linewidth][c]{
+    \parbox{0.9\linewidth}{\centering
+      \bfseries\insertframetitle
+    }
+  }
+}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode
+  \hbox{
+    \hspace*{-0.06cm}
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+      \usebeamerfont{author in head/foot}\insertshortauthor \hspace*{1em} \insertshortinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.50\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}
+      \usebeamerfont{section in head/foot}\insertshorttitle
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.27\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+      \usebeamerfont{section in head/foot}\insertshortdate{}\hspace*{2em}
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}
+  }
+  \vskip0pt
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    \addtocounter{framenumber}{-1}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    \addtocounter{framenumber}{-1}
+    \tableofcontents[currentsubsection,hideothersubsections,sectionstyle=show/shaded,subsectionstyle=show/shaded]
+  \end{frame}
+}
+% -----------------------------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Beginning of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title[Génét. Quanti., UniQ ]{Réponse à la sélection}
+\author[J. Salomon]{Jemay Salomon}
+\institute[]{\small UMR GQE Le Moulon \\ Université Paris–Saclay, INRAE, CNRS, AgroParisTech}
+\date{Dec. 16, 2025}
+
+%% Title page
+\begin{frame}[plain,t]
+\noindent
+%\includegraphics[height=0.7cm]{figures/logo-gqe-le-moulon.png}\hfill
+%\includegraphics[height=0.8cm]{figures/logos_mobidiv.jpeg}
+
+\vfill
+\begin{center}
+  %PLANTCOM meeting, Dijon
+
+  \bigskip
+
+  \bigskip
+  
+  {\fontsize{14pt}{16pt}\selectfont\bfseries \inserttitle}\\[0.8cm] 
+  {\large\insertauthor}\\[0.4cm] 
+  {\normalsize\insertinstitute}
+\end{center}
+\vfill
+
+\noindent
+\includegraphics[width=2cm]{figures/logo_faculte_sciences.png}\hfill
+\includegraphics[width=0.8cm]{figures/logo-inrae-fond-blanc.png}\hfill
+\includegraphics[width=0.5cm]{figures/logo_CNRS_biologie.png}\hfill
+\includegraphics[width=1.5cm]{figures/logo_agroparistech.png}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% --Begin-Document --%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+\section{Motivation}
+\begin{frame}{Pourquoi étudier la réponse à la sélection ?}
+\textbf{Sélection artificielle et évolution}
+
+\begin{itemize}
+  \item En \textbf{amélioration des plantes et des animaux}, la sélection vise à
+  \begin{itemize}
+    \item améliorer la valeur moyenne d’une population,
+    \item orienter l’évolution des caractères dans une direction désirée,
+    \item en choisissant les parents de la génération suivante,
+    \item et en contrôlant les schémas de reproduction (autofécondation, allofécondation).
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \item En \textbf{populations naturelles} ou en \textbf{pré-breeding}, l’objectif est de
+  \begin{itemize}
+    \item comprendre comment la sélection modifie les caractères,
+    \item décrire les trajectoires évolutives,
+    \item identifier les traits sur lesquels la sélection agit le plus fortement.
+  \end{itemize}
+\end{itemize}
+
+\vspace{0.2cm}
+\textit{ Lynch \& Walsh (1998), Gallais (1990)}
+\end{frame}
+
+\begin{frame}{Prédire l’effet de la sélection}
+\textbf{Un enjeu central en génétique quantitative}
+
+\begin{itemize}
+  \item Un problème fondamental est de \textbf{prédire la valeur des descendants}
+  issus des individus sélectionnés.
+  
+  \vspace{0.2cm}
+  \item À partir du cadre statistique vu dans les cours précédents, on cherche à prédire
+  \begin{itemize}
+    \item le changement de moyenne phénotypique,
+    \item la réponse de la population à la sélection.
+  \end{itemize}
+
+  \vspace{0.2cm}
+  \item Ces prédictions permettent :
+  \begin{itemize}
+    \item d’optimiser les schémas de sélection en amélioration,
+    \item de comprendre les facteurs évolutifs gouvernant l’évolution des caractères,
+    \item y compris l’évolution de la fitness elle-même.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Réponse à la sélection}
+\subsection{Modélisation théorique}
+\begin{frame}{Modélisation théorique}
+\begin{itemize}
+  \item On considère \textbf{un seul caractère} mesuré dans une population
+  composée de $I$ génotypes distincts.
+  
+  \item À chaque génotype $i \in \{1,\ldots,I\}$ est associée une
+  \textbf{valeur génotypique} $g_i$.
+
+  \vspace{0.2cm}
+  \item Dans la théorie classique de la génétique quantitative :
+  \[
+  g_i = a_i + d_i + \zeta_i
+  \]
+
+  \item où :
+  \begin{itemize}
+    \item $a_i$ : effet \textbf{additif} (valeur transmissible),
+    \item $d_i$ : effet de \textbf{dominance},
+    \item $\zeta_i$ : effet d’\textbf{épistasie}.
+  \end{itemize}
+
+  \vspace{0.2cm}
+  \item Ces composantes sont supposées \textbf{indépendantes}.
+  \item La composante additive $a_i$ est la seule transmise en moyenne à la descendance :
+  elle est appelée \textit{breeding value}.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Hypothèse infinitésimale et variance additive}
+
+\only<1>{
+\begin{itemize}
+  \item Le caractère est supposé contrôlé par un grand nombre de loci
+  ayant chacun un effet faible : \textbf{hypothèse infinitésimale}.
+
+  \vspace{0.2cm}
+  \item Sous cette hypothèse :
+  \[
+  g_i \sim \mathcal{N}(0, \sigma_g^2)
+  \]
+
+  \item En particulier, pour la composante additive :
+  \[
+  a_i \sim \mathcal{N}(0, \sigma_a^2)
+  \]
+  où $\sigma_a^2$ est la \textbf{variance génétique additive}.
+  \end{itemize}
+  }
+  \only<2>{
+\begin{itemize}
+  
+  \item En écriture multivariée :
+  \[
+  \boldsymbol{a} \sim \mathcal{N}_I(\boldsymbol{0}, \sigma_a^2 A)
+  \]
+  \item $A$ est la \textbf{matrice de relations génétiques additives},
+  dérivable :
+  \begin{itemize}
+    \item du pédigrée (espérance mendélienne),
+    \item ou directement des données de génotypage.
+  \end{itemize}
+
+  \vspace{0.2cm}
+  \item Tant que $\sigma_a^2 > 0$, la sélection des individus
+  ayant les plus grandes valeurs additives $a_i^{(s)}$
+  permet d’augmenter la moyenne génotypique au fil des générations.
+\end{itemize}
+}
+\end{frame}
+
+\subsection{Modélisation statistique}
+\begin{frame}{Modélisation statistique}
+\begin{itemize}
+  \item Les valeurs génotypiques $\{g_i\}$ ne sont \textbf{pas observables directement}.
+  \item On dispose uniquement d’observations phénotypiques :
+  \[
+  \{y_n\}_{1 \le n \le N}, \quad \mathbb{E}[y_n] = \mu_0, \quad \text{Var}[y_n] = \sigma_p^2
+  \]
+
+  \vspace{0.2cm}
+  \item Hypothèses statistiques de base :
+  \begin{itemize}
+    \item données indépendantes,
+    \item distribution Normale,
+    \item absence de covariance entre erreurs.
+  \end{itemize}
+
+  \vspace{0.2cm}
+  \item La vraisemblance marginale s’écrit alors :
+  \[
+  y_n \mid \mu_0, \sigma_p^2 \;\overset{\text{i.i.d}}{\sim}\; \mathcal{N}(\mu_0, \sigma_p^2)
+  \]
+
+  \item Objectif : utiliser les phénotypes pour \textbf{estimer ou prédire} les effets génétiques.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Modélisation statistique}
+\begin{itemize}
+  \item En pratique, on observe plusieurs répétitions par génotype :
+  \[
+  N = I \times J
+  \]
+
+  \vspace{0.2cm}
+  \item Le modèle phénotypique s’écrit :
+  \[
+  y_{ij} = \mu + g_i + \epsilon_{ij}
+  \]
+  avec :
+  \[
+  \epsilon_{ij} \mid \sigma^2 \;\overset{\text{i.i.d}}{\sim}\; \mathcal{N}(0, \sigma^2)
+  \]
+
+  \vspace{0.2cm}
+  \item Conditionnellement aux effets génétiques :
+  \[
+  y_{ij} \mid \mu, g_i, \sigma^2
+  \sim \mathcal{N}(\mu + g_i, \sigma^2)
+  \]
+
+  \item $g_i$ est traité comme un \textbf{effet aléatoire} : on est en présence
+  d’un \textbf{modèle linéaire mixte}.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Variances et héritabilité}
+
+\begin{itemize}
+
+\only<1>{
+  \item Après intégration des effets génétiques :
+  \[
+  y_{ij} \mid \mu_0, \sigma_g^2, \sigma^2
+  \sim \mathcal{N}(\mu_0, \sigma_g^2 + \sigma^2)
+  \]
+
+  \item Décomposition de la variance phénotypique :
+  \[
+  \sigma_p^2 = \sigma_g^2 + \sigma^2
+  \]
+
+  \item Les composantes de variance peuvent être estimées par \textit{ReML}.
+  \item Les prédictions des effets génétiques $g_i$ reposent sur les équations de Henderson
+  (BLUP).
+  }
+  
+  \only<2>{
+
+  \vspace{0.2cm}
+  \item Corrélation entre génotype et phénotype :
+  \[
+  \rho_{g,y} = \frac{\text{Cov}(g,y)}{\sigma_g \sigma_p}
+  \]
+
+  \item En l’absence de covariance génotype--environnement :
+  \[
+  H^2 = \frac{\sigma_g^2}{\sigma_p^2}
+  \]
+
+  \item $H^2$ mesure la capacité du dispositif expérimental à révéler les différences génétiques.
+}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Relation entre parents et descendants}
+\begin{itemize}
+\only<1>{
+  \item On cherche à relier le phénotype des enfants au phénotype de leurs parents.
+  \item On considère :
+  \begin{itemize}
+    \item $y_{\text{mère}}$ : phénotype de la mère,
+    \item $y_{\text{père}}$ : phénotype du père,
+    \item $y = \dfrac{y_{\text{mère}} + y_{\text{père}}}{2}$ : \textbf{parent moyen},
+    \item $y_e$ : phénotype de l’enfant.
+  \end{itemize}
+}
+ \only<2>{
+  \item Décomposition des phénotypes parentaux :
+  \[
+  y_{\text{mère}} = a_{\text{mère}} + d_{\text{mère}} + \zeta_{\text{mère}} + \epsilon_{\text{mère}}
+  \]
+  \[
+  y_{\text{père}} = a_{\text{père}} + d_{\text{père}} + \zeta_{\text{père}} + \epsilon_{\text{père}}
+  \]
+
+  \item Le phénotype de l’enfant s’écrit :
+  \[
+  y_e = a_{\text{mère}} + a_{\text{père}} + \epsilon_e
+  \]
+
+  \item Seule la composante \textbf{additive} est transmise à la descendance.
+  }
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Régression enfants--parents}
+\begin{itemize}
+  \item Pour caractériser la relation parents–enfants, on considère la régression linéaire :
+  \[
+  y_e = \alpha + \beta_{\text{enfants},\text{parents}} \, y + \eta
+  \]
+
+  \item La pente de la droite est donnée par :
+  \[
+  \beta_{\text{enfants},\text{parents}}
+  = \frac{\text{Cov}[y, y_e]}{\text{Var}[y]}
+  \]
+
+  \item Hypothèses clés :
+  \begin{itemize}
+    \item panmixie (accouplements aléatoires),
+    \item absence de sélection,
+    \item absence de covariance génotype--environnement,
+    \item absence de transmission d’effets environnementaux.
+  \end{itemize}
+
+  \item Sous ces hypothèses, de nombreux termes de covariance s’annulent.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Covariance parents--enfants}
+\begin{itemize}
+  \item La covariance s’écrit :
+  \[
+  \text{Cov}[y, y_e]
+  = \text{Cov} \left[
+  \frac{a_{\text{mère}} + a_{\text{père}}}{2},
+  a_{\text{mère}} + a_{\text{père}}
+  \right]
+  \]
+
+  \item En utilisant l’indépendance entre parents :
+  \[
+  \text{Cov}[y, y_e]
+  = \frac{\text{Var}[a_{\text{mère}}] + \text{Var}[a_{\text{père}}]}{2}
+  \]
+
+  \item En panmixie, la variance génétique additive totale est :
+  \[
+  \sigma_a^2 = \text{Var}[a_{\text{mère}}] + \text{Var}[a_{\text{père}}]
+  \]
+
+  \item Ainsi :
+  \[
+  \text{Cov}[y, y_e] = \frac{\sigma_a^2}{2}
+  \]
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Héritabilité au sens strict}
+\begin{itemize}
+  \item La variance du parent moyen est :
+  \[
+  \text{Var}[y]
+  = \frac{\text{Var}[y_{\text{mère}}] + \text{Var}[y_{\text{père}}]}{4}
+  = \frac{\sigma_p^2}{2}
+  \]
+
+  \item La pente de la régression devient :
+  \[
+  \beta_{\text{enfants},\text{parents}}
+  = \frac{\sigma_a^2 / 2}{\sigma_p^2 / 2}
+  = \frac{\sigma_a^2}{\sigma_p^2}
+  \]
+
+  \item On définit :
+  \[
+  h^2 = \frac{\sigma_a^2}{\sigma_p^2}
+  \quad \text{(héritabilité au sens strict)}
+  \]
+
+  \item $h^2$ est aussi la corrélation entre phénotype et valeur génétique additive :
+  \[
+  \rho_{a,y} = h
+  \]
+\end{itemize}
+\end{frame}
+
+\section{Equation du selectionneur}
+\subsection{Differentiel de selection}
+\begin{frame}
+\frametitle{Differentiel de selection}
+ \begin{center}
+      \includegraphics[width=0.9\textwidth,height=\textheight,keepaspectratio=true]{figures/s.jpeg}
+ \end{center}
+ \vspace{-0.3cm}
+\[
+S = \mu^{(s)} - \mu_0
+\]
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Intensite de selection}
+
+\begin{itemize}
+ \item $S$ est dépend de l'unité de mesure du phénotype.
+\end{itemize}
+Pour comparer la sélection sur différents caractères, il est donc recommandé de travailler avec une valeur standardisée,
+ l'$intensité de sélection$, notée $i$ (à ne pas confondre avec l'indice $i$ du modèle statistique):
+
+\[
+i = \frac{S}{\sigma_p}
+\]
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Intensite de selection}
+ \begin{center}
+      \includegraphics[width=0.9\textwidth,height=\textheight,keepaspectratio=true]{figures/int.jpeg}
+ \end{center}
+\end{frame}
+
+
+\subsection{Réponse à la sélection}
+\begin{frame}{Réponse à la sélection : idée centrale}
+\begin{itemize}
+  \item L’héritabilité au sens strict vérifie :
+  \[
+  0 \le h^2 \le 1
+  \]
+  \item La droite de régression des enfants sur les parents est donc
+  \textbf{moins pentue que la droite identité}.
+  \item Cette observation est à l’origine du terme de
+  \textit{régression vers la moyenne} (Galton).
+
+  \vspace{0.2cm}
+  \item Notons :
+  \begin{itemize}
+    \item $\mu_0$ : moyenne phénotypique de la population parentale,
+    \item $\mu^{(s)}$ : moyenne des parents sélectionnés,
+    \item $\mu_1$ : moyenne phénotypique de la descendance.
+  \end{itemize}
+
+  \vspace{0.2cm}
+  \item On définit :
+  \[
+  S = \mu^{(s)} - \mu_0
+  \quad \text{(différentiel de sélection)}
+  \]
+  \[
+  R = \mu_1 - \mu_0
+  \quad \text{(réponse à la sélection)}
+  \]
+
+  \item La sélection des parents induit donc un changement de moyenne
+  chez les descendants.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Équation du sélectionneur}
+\begin{itemize}
+  \item La pente de la régression enfants--parents s’écrit :
+  \[
+  \beta_{\text{enfants,parents}}
+  = \frac{\mu_1 - \mu_0}{\mu^{(s)} - \mu_0}
+  = \frac{R}{S}
+  \]
+
+  \item Or, on a montré précédemment que :
+  \[
+  \beta_{\text{enfants,parents}} = h^2
+  \]
+
+  \item On obtient alors la relation fondamentale :
+  \[
+  \boxed{R = h^2 \; S}
+  \]
+
+  \vspace{0.2cm}
+  \item Cette équation combine :
+  \begin{itemize}
+    \item une information d’hérédité (\(h^2\)),
+    \item une information de sélection (\(S\)),
+    \item pour prédire le changement intergénérationnel (\(R\)).
+  \end{itemize}
+
+  \item Elle est connue sous le nom d’\textbf{équation du sélectionneur}.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Interprétation et optimisation de la sélection}
+\begin{itemize}
+\only<1>{
+  \item Le différentiel de sélection peut s’écrire :
+  \[
+  S = i \, \sigma_p
+  \]
+  où $i$ est l’intensité de sélection.
+
+  \item La réponse devient :
+  \[
+  R = i \, h^2 \, \sigma_p
+  = i \, h \, \sigma_a
+  \]
+
+  \item Le terme $h = \frac{\sigma_a}{\sigma_p}$ est aussi :
+  \[
+  h = \rho_{a,y}
+  \]
+  la corrélation entre phénotype observé et valeur génétique additive,
+  appelée \textbf{précision} ou \textit{accuracy} ($r$).
+
+  \vspace{0.2cm}
+  \item On peut donc écrire :
+  \[
+  \boxed{R = i \; r \; \sigma_a}
+  \]
+}
+
+\only<2>{
+  \item \textbf{En résumé} :
+  \[
+  \text{Réponse} =
+  \text{intensité} \times \text{précision} \times \text{variance additive}
+  \]
+
+  \vspace{0.2cm}
+  \item Une sélection trop intense augmente $R$ à court terme,
+  mais réduit la variance génétique disponible à long terme.
+  }
+\end{itemize}
+\end{frame}
+
+
+\section{Effet de la selection sur la variance}
+
+\begin{frame}{Effet de la sélection sur la variance génétique}
+\only<1-5>{
+\begin{itemize}
+\item<1-> \textbf{Question clé :}  
+La sélection modifie les fréquences alléliques aux locus impliqués dans la variation d’un trait.  
+Peut-on s’attendre à une modification rapide de la variance génétique d’une population ?
+
+\item<2-> Pour un locus à effets additifs :  
+Si l’effet de chaque allèle est faible, le changement de variance au locus est très limité sur quelques générations.
+
+\item<3-> Pour un caractère polygénique (somme de plusieurs locus) :  
+La sélection crée une covariance négative entre locus non liés.
+
+\item<4-> Cette covariance négative réduit la variance additive totale observée dans la population.  
+C’est l’\textbf{effet Bulmer}.
+
+\item<5-> Cette diminution de variance n’est pas définitive :  
+elle est stockée dans le \textbf{déséquilibre de liaison} et peut se relâcher si la pression de sélection diminue.
+\end{itemize}
+}
+
+\only<2->{
+\begin{itemize}
+\item<6-> En résumé :  
+\begin{itemize}
+    \item La sélection modifie les fréquences alléliques très progressivement à chaque locus.  
+    \item La variance diminue surtout à cause de covariances négatives entre loci.  
+    \item La variance totale peut se récupérer avec le temps et le recombinage.
+\end{itemize}
+\end{itemize}
+}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% -- Activité --%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Activité - 45-60 min}
+\begin{frame}
+ \frametitle{Activité}
+%% Donner 3 articles, chaque etudiant choisit un article à son choix
+\begin{itemize}
+\setbeamertemplate{itemize item}[square]
+\setlength{\itemsep}{0.6em}
+\item Code R
+\end{itemize}
+\end{frame}
+
+% After your last numbered slide
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+
+\setcounter{framenumber}{\value{finalframe}}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

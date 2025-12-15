@@ -58,7 +58,7 @@ By the end of this course, students will be able to:
 | 25/11/2025 | Le Modèle génétique et le cas biallélique                      | [Lecture II][lecture2]    |        | |
 | 02/12/2025 | Covariances entre apparentés                                   | [Lecture III][lecture3]          | Intra |
 | 09/12/2025 | Introduction aux MLMs et egstimation de (co)variances génétiques| [Lecture IV][lecture4]                                     |       |
-| 16/12/2025 | Réponse à la sélection et corrélation génétique                | —                                      |       |
+| 16/12/2025 | Réponse à la sélection              | —                                      |       |
 | 06/01/2026 | TD 2: Interactions G×E                                         | —                                      |       |
 | 13/01/2026 | Introduction à la génétique quantitative appliquée aux mélanges | —                                      | Final |
 

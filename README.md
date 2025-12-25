@@ -57,9 +57,9 @@ By the end of this course, students will be able to:
 | 11/11/2025 | Introduction à la génétique quantitative                       | [Lecture I][lecture1]     |       |
 | 25/11/2025 | Le Modèle génétique et le cas biallélique                      | [Lecture II][lecture2]    |        | |
 | 02/12/2025 | Covariances entre apparentés                                   | [Lecture III][lecture3]          | Intra |
-| 09/12/2025 | Introduction aux MLMs et egstimation de (co)variances génétiques| [Lecture IV][lecture4]                                     |       |
-| 16/12/2025 | Réponse à la sélection              | —                                      |       |
-| 06/01/2026 | TD 2: Interactions G×E                                         | —                                      |       |
+| 09/12/2025 | Introduction aux MLMs et egstimation de (co)variances génétiques| [Lecture IV][lecture4]     |                   |
+| 16/12/2025 | Réponse à la sélection                                          |[Lecture V][lecture5]        |                  |
+| 06/01/2026 | TD 2: Interactions G×E                                          | —                                      |       |
 | 13/01/2026 | Introduction à la génétique quantitative appliquée aux mélanges | —                                      | Final |
 
 
@@ -68,6 +68,7 @@ By the end of this course, students will be able to:
 [lecture2]:https://inrae-fr.zoom.us/rec/share/NzEpJCtvmq5Xdp2FwAnGHCZ-n3l25KMhtVO_IOZCrp4w7cZ67ZzNLXzh1aeqmKi8.tMd-2e6SuM2lVk_k 
 [lecture3]:https://inrae-fr.zoom.us/rec/share/2tSz2bEM23TM2AYrY2keDT8744W2BKsRpAjyRQBebhO4rbt20heF1CnAXfFAzaET.8LltvtXXoj_GD86S 
 [lecture4]:https://inrae-fr.zoom.us/rec/share/fMOFu7kq_6fboJv-yDMzGP_CtPu32ZvgeM1fj41-TA5okRBXSvTEDOK8z9_-sly_.uolcJv5GIqO13NN3 
+[lecture5]:https://inrae-fr.zoom.us/rec/share/vmegWo7dZBrVSg_FrTH76lccGY1kvA5ON2BSC_BpN71JWdJbrMIlwQUzc5QgSF7h.93vulUSVrm9wiJ02
 
 *Course duration:* **11 November 2025 – 13 January 2026**
 

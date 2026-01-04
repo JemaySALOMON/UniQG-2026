@@ -1,0 +1,334 @@
+\documentclass[c]{beamer} % use [t] to top-justified body text by default
+% \documentclass[c,handout]{beamer}
+\usepackage{graphicx}
+\hypersetup{colorlinks, linkcolor=black, urlcolor=gray}
+\usepackage{amsmath}
+\usepackage{bm} % to have mathematical symbols in bold
+\usepackage{multirow}
+\usepackage{tikz}
+% \usepackage[francais]{babel}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage{tcolorbox}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% https://tex.stackexchange.com/a/82558
+\usepackage[absolute,overlay]{textpos}
+% \usepackage[texcoord,grid,gridunit=mm,gridcolor=red!10,subgridcolor=green!10]{eso-pic}
+
+\graphicspath{{./figures/}}
+
+% -----------------------------------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{alerted text}{fg=purple}
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeameroption{hide notes}
+% \setbeameroption{show notes}
+\setbeamertemplate{note page}[plain]
+
+\setbeamertemplate{frametitle}{
+  \vspace{0.2cm}
+  \makebox[\linewidth][c]{
+    \parbox{0.9\linewidth}{\centering
+      \bfseries\insertframetitle
+    }
+  }
+}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode
+  \hbox{
+    \hspace*{-0.06cm}
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+      \usebeamerfont{author in head/foot}\insertshortauthor \hspace*{1em} \insertshortinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.50\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}
+      \usebeamerfont{section in head/foot}\insertshorttitle
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.27\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+      \usebeamerfont{section in head/foot}\insertshortdate{}\hspace*{2em}
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}
+  }
+  \vskip0pt
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    \addtocounter{framenumber}{-1}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Outline}
+    \addtocounter{framenumber}{-1}
+    \tableofcontents[currentsubsection,hideothersubsections,sectionstyle=show/shaded,subsectionstyle=show/shaded]
+  \end{frame}
+}
+% -----------------------------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Beginning of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title[Génét. Quanti., UniQ ]{Cours 6 : Interactions G×E}
+\author[J. Salomon]{Jemay Salomon}
+\institute[]{\small UMR GQE Le Moulon \\ Université Paris–Saclay, INRAE, CNRS, AgroParisTech}
+\date{Jan. 06, 2026}
+
+%% Title page
+\begin{frame}[plain,t]
+\noindent
+%\includegraphics[height=0.7cm]{figures/logo-gqe-le-moulon.png}\hfill
+%\includegraphics[height=0.8cm]{figures/logos_mobidiv.jpeg}
+
+\vfill
+\begin{center}
+  %PLANTCOM meeting, Dijon
+
+  \bigskip
+
+  \bigskip
+  
+  {\fontsize{14pt}{16pt}\selectfont\bfseries \inserttitle}\\[0.8cm] 
+  {\large\insertauthor}\\[0.4cm] 
+  {\normalsize\insertinstitute}
+\end{center}
+\vfill
+
+\noindent
+\includegraphics[width=2cm]{figures/logo_faculte_sciences.png}\hfill
+\includegraphics[width=0.8cm]{figures/logo-inrae-fond-blanc.png}\hfill
+\includegraphics[width=0.5cm]{figures/logo_CNRS_biologie.png}\hfill
+\includegraphics[width=1.5cm]{figures/logo_agroparistech.png}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% --Begin-Document --%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\section{Contexte}
+\begin{frame}
+\frametitle{Contexte}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{itemize}
+  \item L’interaction génotype \(\times\) environnement (G\(\times\)E) complique les décisions de sélection des sélectionneurs
+  \item Les individus (génotypes) réagissent différemment aux variations de leur environnement
+  \item Les sélectionneurs s’intéressent aux génotypes bien adaptés à leur population cible d’environnements (TPE)
+  \item Par exemple : des génotypes à haut rendement et stables à travers les années et les localisations
+\end{itemize}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\centering
+\textbf{Env.1}\\
+\includegraphics[width=0.9\textwidth]{figures/env1.png}\\[0.4cm]
+\textbf{Env.2}\\
+\includegraphics[width=0.9\textwidth]{figures/env2.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+\section{Interactions Genotypes x Environnements}
+\begin{frame}
+\frametitle{Interactions GXE}
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+  \item La similarité entre environnements est souvent évaluée à l’aide des \textbf{corrélations génétiques}
+  \item Corrélation = 1 : accord parfait des classements des génotypes entre environnements
+  \item Corrélation = 0 : absence de similarité dans les classements entre environnements
+  \item Corrélation = -1 : inversion complète des classements des génotypes entre environnements
+\end{itemize}
+\end{column}
+
+% Colonne droite : espace pour image
+\begin{column}{0.4\textwidth}
+\centering
+\vspace{1cm}
+\fbox{\parbox[c][4cm][c]{0.9\textwidth}{
+\centering
+\includegraphics[width=0.9\textwidth]{figures/env_cor.png}
+}}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types d'Interactions G$\times$E}
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/types_1.png}
+  \end{column}
+
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/types_2.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types d'interactions G$\times$E}
+\centering
+\includegraphics[width=\textwidth]{figures/both_GE.png}
+\vspace{0.2cm}
+{\footnotesize Source : EUCARPIA 2025 Biometrics Plant Breeding — adapté de Tolhust}
+\end{frame}
+
+
+\section{MET-TPE}
+\subsection{TPE-Target Population Environnement}
+\begin{frame}
+\frametitle{TPE-Target Population Environnement}
+\centering
+\includegraphics[width=\textwidth]{figures/TPE.png}
+\vspace{0.2cm}
+{\footnotesize Source : EUCARPIA 2025 Biometrics Plant Breeding — adapté de Tolhust}
+\end{frame}
+
+\begin{frame}
+\frametitle{TPE-Target Population Environnement}
+\centering
+\includegraphics[width=\textwidth]{figures/MET_TPE.png}
+\vspace{0.2cm}
+{\footnotesize Cooper et al. (2023); Bančič et al. (2024)}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comment gérer l’interaction G$\times$E ?}
+\begin{itemize}
+  \item Historiquement, l’interaction G$\times$E a été abordée de trois manières principales :
+  \begin{enumerate}
+    \item \textbf{Ignorer la G$\times$E} en sélectionnant les génotypes les plus performants en moyenne
+    \item \textbf{Réduire la G$\times$E} en regroupant des environnements similaires et en sélectionnant au sein de chaque groupe
+    \item \textbf{Exploiter la G$\times$E} en sélectionnant des individus performants en moyenne et stables (adaptabilité)
+  \end{enumerate}
+  \item Une combinaison des approches \textbf{(2)} et \textbf{(3)} peut également être envisagée
+\end{itemize}
+\end{frame}
+
+\subsection{MET-Multi-environment trial}
+\begin{frame}
+\frametitle{MET-Multi-environment trial}
+\centering
+\only<1>{
+\includegraphics[width=\textwidth]{figures/MET.png}
+\vspace{0.2cm}
+{\footnotesize Source : EUCARPIA 2025 Biometrics Plant Breeding — adapté de Tolhust}
+}
+
+\only<2>{
+\includegraphics[width=\textwidth]{figures/breeding.png}
+\vspace{0.2cm}
+{\footnotesize Source : EUCARPIA 2025 Biometrics Plant Breeding — adapté de Tolhust}
+}
+\end{frame}
+
+
+\section{Modèles Linéaires pour MET}
+\begin{frame}
+\frametitle{RCBD}
+
+\[
+y_{ij} = \mu + g_i + b_j + \epsilon_{ij}
+\]
+
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{itemize}
+  \item simple à contruire
+  \item Complet/equilibré
+  \item Facile à résoudre
+\end{itemize}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/rcbd.png}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Extension aux MET}
+
+\[
+y_{ijm} = \mu +  \alpha_m + g_{im} + b_{jm} + ..Interactions ...+ \epsilon_{ijm}
+\]
+
+\begin{itemize}
+  \item y : phenotype (ex. rendement)
+  \item $\mu$ intercept
+  \item $ \alpha_m$ : effet environnement
+   \item $ b_{jm}$ : effet block
+   \item $\epsilon_{ijm}$ : residus
+\end{itemize}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Décomposition des interactions G$\times$E}
+\centering
+\only<1>{
+\textbf{Métriques couramment utilisées :}
+
+\begin{itemize}
+  \item Analyse de la variance (ANOVA)
+  \item Modèles de régression  
+        (Finlay \& Wilkinson, 1963 ; Eberhart \& Russell, 1966)
+  \item Écovalence de Wricke (1962)
+  \item Variance de Shukla (1972)
+  \item Indice de Kang (YSi) / rKang (1991)
+  \item Indice de supériorité (Lin \& Binns, 1988)
+  \item Rendement moyen
+\end{itemize}
+}
+
+\only<2>{
+\includegraphics[width=\textwidth]{figures/part_GE.png}
+
+\vspace{0.2cm}
+{\footnotesize Mémoire de Master 2 (Salomon, 2023)}
+}
+\end{frame}
+
+
+% After your last numbered slide
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+\setcounter{framenumber}{\value{finalframe}}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

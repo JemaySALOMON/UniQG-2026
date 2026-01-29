@@ -58,9 +58,9 @@ By the end of this course, students will be able to:
 | 25/11/2025 | Le Modèle génétique et le cas biallélique                       | [Lecture II][lecture2]       |                  |
 | 02/12/2025 | Covariances entre apparentés                                    | [Lecture III][lecture3]      |     Intra        |
 | 09/12/2025 | Introduction aux MLMs et egstimation de (co)variances génétiques| [Lecture IV][lecture4]       |                  |
-| 16/12/2025 | Réponse à la sélection                                          | [Lecture V][lecture5]         |                  |
-| 06/01/2026 | TD 2: Interactions G×E                                          | [Lecture VI][lecture6]        |                  |
-| 13/01/2026 | Projet Final                                                    |        —                     |        Final     |
+| 16/12/2025 | Réponse à la sélection                                          | [Lecture V][lecture5]        |                  |
+| 06/01/2026 | TD 2: Interactions G×E                                          | [Lecture VI][lecture6]       |                  |
+| 13/01/2026 | Projet Final                                                    |[Lecture VII][lecture7]       |        Final     |
 
 
 <!-- LINK DEFINITIONS -->
@@ -70,6 +70,7 @@ By the end of this course, students will be able to:
 [lecture4]:https://inrae-fr.zoom.us/rec/share/fMOFu7kq_6fboJv-yDMzGP_CtPu32ZvgeM1fj41-TA5okRBXSvTEDOK8z9_-sly_.uolcJv5GIqO13NN3 
 [lecture5]:https://inrae-fr.zoom.us/rec/share/vmegWo7dZBrVSg_FrTH76lccGY1kvA5ON2BSC_BpN71JWdJbrMIlwQUzc5QgSF7h.93vulUSVrm9wiJ02
 [lecture6]:https://inrae-fr.zoom.us/rec/share/OrF2dQoatNueSPucRXTGvbgl-78K_C7KEXgBW1er7LOJaEgbcqa1Aq8uYojxYUP7.IdjnU9_WOD95bFrB 
+[lecture7]:https://inrae-fr.zoom.us/rec/share/cHjENTgZkEbnDai0JYyzm4WDFxACitcsxp1UGMXU7uiW34DQYVMzgKSEqopS64lh.eIDl0mHnNSJ4TzBA 
 
 *Course duration:* **11 November 2025 – 13 January 2026**
 
